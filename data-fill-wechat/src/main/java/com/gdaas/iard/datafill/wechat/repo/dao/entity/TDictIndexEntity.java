@@ -22,65 +22,40 @@ import java.io.Serializable;
  * <p></p>
  *
  * @author like
- * @since 2019-09-25
+ * @since 2019-09-30
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-@TableName("t_template_data")
-@ApiModel(value = "TTemplateDataEntity对象", description = "")
-public class TTemplateDataEntity extends AbstractBaseEntity<TTemplateDataEntity> {
+@TableName("t_dict_index")
+@ApiModel(value = "TDictIndexEntity对象", description = "")
+public class TDictIndexEntity extends AbstractBaseEntity<TDictIndexEntity> {
 
     @ApiModelProperty(value = "主键ID ")
     @TableId("id")
     private String id;
-    @TableId("template_id")
-    private String templateId;
-    @TableField("template_name")
-    private String templateName;
 
-    @TableField("template_number")
-    private String templateNumber;
-
-    @TableField("dict_id")
-    private String dictId;
-
+    @ApiModelProperty(value = "一级指标 ")
     @TableField("level1")
     private String level1;
 
+    @ApiModelProperty(value = "二级指标 ")
     @TableField("level2")
     private String level2;
 
+    @ApiModelProperty(value = "三级指标 ")
     @TableField("level3")
     private String level3;
 
+    @ApiModelProperty(value = "四级指标 ")
     @TableField("level4")
     private String level4;
 
-    @TableField("unit")
-    private String unit;
-
-    @TableField("data_type")
-    private String dataType;
-
-    @TableField("data_length")
-    private Integer dataLength;
-
-    @TableField("select_value")
-    private String selectValue;
-
-    @TableField("default_value")
-    private String defaultValue;
-
-    @TableField("formula")
-    private String formula;
-
-    @TableField("sort_number")
-    private String sortNumber;
-
+    @ApiModelProperty(value = "记录创建时间 ")
     @TableField("create_time")
     private Date createTime;
 
+    @ApiModelProperty(value = "修改时间时间 ")
     @TableField("update_time")
     private Date updateTime;
 

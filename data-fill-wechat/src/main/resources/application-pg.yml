@@ -1,0 +1,18 @@
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://47.96.253.76:5432/data_fill
+    username: user_dev
+    password: user_dev123
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      pool-name: HikariPool
+      read-only: false
+      minimum-idle: 10
+      maximum-pool-size: 20
+      auto-commit: true
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
+  application:
+    name: wechat-miniprogram-server

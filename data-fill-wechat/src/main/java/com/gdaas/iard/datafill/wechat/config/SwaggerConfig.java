@@ -48,6 +48,7 @@ public class SwaggerConfig {
                 .groupName(GROUP_NAME)
                 .apiInfo(apiInfo())
                 .select()
+//                .paths("/**")
                 //扫描注解了@ApiOperation的方法生成API接口文档
                 .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
                 //可以根据url路径设置哪些请求加入文档，忽略哪些请求

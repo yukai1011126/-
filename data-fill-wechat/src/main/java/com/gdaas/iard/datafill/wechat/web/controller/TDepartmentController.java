@@ -6,10 +6,8 @@
 
 package com.gdaas.iard.datafill.wechat.web.controller;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.gdaas.iard.datafill.wechat.service.TTemplateDataService;
-import com.gdaas.iard.datafill.wechat.repo.dao.entity.TTemplateDataEntity;
-import com.gdaas.iard.datafill.wechat.web.common.BaseRequest;
+import com.gdaas.iard.datafill.wechat.service.TDepartmentService;
+import com.gdaas.iard.datafill.wechat.repo.dao.entity.TDepartmentEntity;
 import com.gdaas.iard.datafill.wechat.web.common.BaseResp;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
@@ -32,14 +30,14 @@ import java.util.List;
  * CRUD (POST GET PUT DELETE)
  *
  * @author like
- * @since 2019-09-25
+ * @since 2019-09-30
  */
-@Api(tags = "TTemplateDataController")
+@Api(tags = "TDepartmentController")
 @RestController
-@RequestMapping("/data")
-public class TTemplateDataController {
+@RequestMapping("/TDepartmentController")
+public class TDepartmentController {
     @Autowired
-    private TTemplateDataService targetService;
+    private TDepartmentService targetService;
 
     /**
      * 获取数据列表
@@ -56,16 +54,14 @@ public class TTemplateDataController {
     }
 
     /**
-     * 获取条件数据数据
+     * 获取全部数据
      *
      * @author jerryniu
      */
     @ApiOperation("查询所有数据")
-    @PostMapping("/listByTemplateId")
-    public BaseResp listByTemplateId(@RequestBody BaseRequest param) {
-        QueryWrapper<TTemplateDataEntity> queryWrapper=new QueryWrapper<>();
-        queryWrapper.lambda().eq(TTemplateDataEntity::getTemplateId,param.getParam().get("templateId"));
-        List<TTemplateDataEntity> models = targetService.list(queryWrapper);
+    @GetMapping("/all")
+    public BaseResp findAll() {
+        List<TDepartmentEntity> models = targetService.list(null);
         return BaseResp.success(models);
     }
 
@@ -77,7 +73,7 @@ public class TTemplateDataController {
     @ApiOperation("查询单条记录")
     @GetMapping("/find")
     public BaseResp find(Long id) {
-        TTemplateDataEntity entity = targetService.getById(id);
+        TDepartmentEntity entity = targetService.getById(id);
         if (entity == null) {
             return BaseResp.fail("尚未查询到此ID");
         }
@@ -91,7 +87,7 @@ public class TTemplateDataController {
      */
     @ApiOperation(value = "添加单条记录", notes = "id自增")
     @PostMapping(value = "/add")
-    public BaseResp addItem(@RequestBody TTemplateDataEntity entity) {
+    public BaseResp addItem(@RequestBody TDepartmentEntity entity) {
         boolean isOk = targetService.save(entity);
         if (isOk) {
             return BaseResp.success("数据添加成功");
@@ -106,7 +102,7 @@ public class TTemplateDataController {
      */
     @ApiOperation("更新单条记录")
     @PutMapping(value = "/update")
-    public BaseResp updateItem(@RequestBody TTemplateDataEntity entity) {
+    public BaseResp updateItem(@RequestBody TDepartmentEntity entity) {
         boolean isOk = targetService.updateById(entity);
         if (isOk) {
             return BaseResp.success("数据更改成功");
