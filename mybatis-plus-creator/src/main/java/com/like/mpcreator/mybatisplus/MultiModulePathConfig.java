@@ -42,6 +42,7 @@ public class MultiModulePathConfig implements MpgPathConfig {
     private static final String DATABASE_URL_KEY = "mysql.url";
     private static final String DATABASE_USER_KEY = "mysql.user";
     private static final String DATABASE_PASSWORD_KEY = "mysql.pwd";
+    private static final String db = "db.dialack";
 
     private static final String ROOTARTIFACTDIR_KEY = "rootArtifactDir";
     private static final String HEADER_KEY = "header";

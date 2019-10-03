@@ -189,7 +189,10 @@ public final class MpgImpl implements Mpg {
                 .setControllerName("%sController");
         //加载默认配置
         dataSourceConfig = new DataSourceConfig()
-                .setDbType(DbType.MYSQL)
+//                .setDbType(DbType.MYSQL)   mysql 数据库
+                .setDbType(DbType.POSTGRE_SQL)
+
+
                 .setDriverName(pathConfig.getDatabaseDriver())
                 .setUrl(pathConfig.getDatabaseUrl())
                 .setUsername(pathConfig.getDatabaseUser())
