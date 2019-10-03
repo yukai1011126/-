@@ -35,11 +35,20 @@ public class TUserEntity extends AbstractBaseEntity<TUserEntity> {
     @TableId("id")
     private String id;
 
-    @TableField("title")
-    private String title;
+    @TableField("name")
+    private String name;
 
     @TableField("mobile")
     private String mobile;
+
+
+    @TableField("password")
+    private String password;
+
+    @TableField("na_cl")
+    private String naCl;
+
+
 
     @TableField("open_Id")
     private String openId;
@@ -56,8 +65,8 @@ public class TUserEntity extends AbstractBaseEntity<TUserEntity> {
     @TableField("country")
     private String country;
 
-    @TableField("povince")
-    private String povince;
+    @TableField("province")
+    private String province;
 
     @TableField("city")
     private String city;

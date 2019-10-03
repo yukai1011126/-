@@ -20,7 +20,24 @@ public enum BaseCode {
     /**异常*/
     ERROR("501", "未知错误,请联系管理员"),
     /**校验异常*/
-    REVIEW("502", "校验异常");
+    REVIEW("502", "校验异常"),
+
+    UNAUTHORIZED("401", "未授权的登录"),
+
+
+    USER_LOGINED("800", "用户正常登录"),
+
+    UNREGISTER("801", "用户未注册"),
+
+    USRE_EXISTED("803", "用户已经存在！"),
+    USRE_REGISTER_ERROR("803", "用户注册失败,获取用户openId失败！"),
+    USRE_REGISTER_SUCCESSED("804", "用户注册成功需要审核！"),
+    PASSWORD_ERROR("802", "密码不正确")
+
+    ;
+
+
+
 
     /**回复码*/
     private String code;

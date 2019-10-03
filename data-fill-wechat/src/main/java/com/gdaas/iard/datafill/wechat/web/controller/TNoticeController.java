@@ -19,6 +19,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -44,10 +45,10 @@ public class TNoticeController {
      */
     @ApiOperation("查询分页")
     @PostMapping("/list")
-    public BaseResp findListByPage(@RequestBody BaseRequest param) {
+    public BaseResp findListByPage(@RequestBody BaseRequest<HashMap> param) {
         Page page = new Page(param.getPage(), param.getRows());
-        QueryWrapper<TNoticeEntity> queryWrapper=new QueryWrapper<TNoticeEntity>();
-        queryWrapper.lambda().orderByDesc(TNoticeEntity::getCreateTime);
+        QueryWrapper<TNoticeEntity> queryWrapper=new QueryWrapper<>();
+        queryWrapper.lambda().orderByDesc(TNoticeEntity::getNoticeDate);
         targetService.page(page, queryWrapper);
         return BaseResp.success(page);
     }
@@ -60,8 +61,8 @@ public class TNoticeController {
      */
     @ApiOperation("查询单条记录")
     @PostMapping ("/find")
-    public BaseResp find(@RequestBody BaseRequest param) {
-        TNoticeEntity entity = targetService.getById(param.getParam().get("id").toString());
+    public BaseResp find(@RequestBody BaseRequest<TNoticeEntity> param) {
+        TNoticeEntity entity = targetService.getById(param.getParam().getId());
         if (entity == null) {
             return BaseResp.fail("尚未查询到此ID");
         }

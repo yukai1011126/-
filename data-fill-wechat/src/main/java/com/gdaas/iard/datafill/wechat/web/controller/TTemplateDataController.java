@@ -62,9 +62,9 @@ public class TTemplateDataController {
      */
     @ApiOperation("查询所有数据")
     @PostMapping("/listByTemplateId")
-    public BaseResp listByTemplateId(@RequestBody BaseRequest param) {
+    public BaseResp listByTemplateId(@RequestBody BaseRequest<TTemplateDataEntity> param) {
         QueryWrapper<TTemplateDataEntity> queryWrapper=new QueryWrapper<>();
-        queryWrapper.lambda().eq(TTemplateDataEntity::getTemplateId,param.getParam().get("templateId"));
+        queryWrapper.lambda().eq(TTemplateDataEntity::getTemplateId,param.getParam().getTemplateId());
         List<TTemplateDataEntity> models = targetService.list(queryWrapper);
         return BaseResp.success(models);
     }

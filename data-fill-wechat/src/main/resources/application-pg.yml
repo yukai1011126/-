@@ -16,3 +16,9 @@ spring:
       max-lifetime: 1800000
   application:
     name: wechat-miniprogram-server
+
+wechat:
+  api:
+    url: https://api.weixin.qq.com/
+  appId: wx20a645cf987e589f
+  appSecret: 0f042fafc127180f837cc62ef4fe3dfc

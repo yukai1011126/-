@@ -47,6 +47,12 @@ public class TAreaDepartmentRoleEntity extends AbstractBaseEntity<TAreaDepartmen
     @TableField("role_name")
     private String roleName;
 
+    @ApiModelProperty(value = "角色类型")
+    @TableField("role_type")
+    private String roleType;
+
+
+
     @ApiModelProperty(value = "记录创建时间 ")
     @TableField("create_time")
     private Date createTime;

@@ -6,9 +6,11 @@
 
 package com.gdaas.iard.datafill.wechat.web.controller;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.gdaas.iard.datafill.wechat.repo.dao.entity.TUserEntity;
 import com.gdaas.iard.datafill.wechat.service.TTemplateJobService;
 import com.gdaas.iard.datafill.wechat.repo.dao.entity.TTemplateJobEntity;
+import com.gdaas.iard.datafill.wechat.service.TUserService;
+import com.gdaas.iard.datafill.wechat.web.common.BaseRequest;
 import com.gdaas.iard.datafill.wechat.web.common.BaseResp;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
@@ -39,6 +41,9 @@ import java.util.List;
 public class TTemplateJobController {
     @Autowired
     private TTemplateJobService targetService;
+
+    @Autowired
+    private TUserService userService;
 
     /**
      * 获取数据列表
@@ -82,47 +87,20 @@ public class TTemplateJobController {
     }
 
     /**
-     * 添加数据
+     * 根据用户ID和用户查询我的任务（DO 填报任务，audit 审核任务，history 历史任务）
      *
      * @author jerryniu
      */
-    @ApiOperation(value = "添加单条记录", notes = "id自增")
-    @PostMapping(value = "/add")
-    public BaseResp addItem(@RequestBody TTemplateJobEntity entity) {
-        boolean isOk = targetService.save(entity);
-        if (isOk) {
-            return BaseResp.success("数据添加成功");
-        }
-        return BaseResp.fail("数据添加失败");
+    @ApiOperation("查询单条记录")
+    @GetMapping("/find")
+    public BaseResp findMyJobs(@RequestBody BaseRequest<TUserEntity> user ) {
+        BaseResp baseResp=  BaseResp.success("asdf");
+
+        return BaseResp.success("asdf");
     }
 
-    /**
-     * 更新数据
-     *
-     * @author jerryniu
-     */
-    @ApiOperation("更新单条记录")
-    @PutMapping(value = "/update")
-    public BaseResp updateItem(@RequestBody TTemplateJobEntity entity) {
-        boolean isOk = targetService.updateById(entity);
-        if (isOk) {
-            return BaseResp.success("数据更改成功");
-        }
-        return BaseResp.fail("数据更改失败");
-    }
 
-    /**
-     * 删除数据
-     *
-     * @author jerryniu
-     */
-    @ApiOperation("删除记录")
-    @DeleteMapping("/del")
-    public BaseResp deleteItems(List<Long> ids) {
-        boolean isOk = targetService.removeByIds(ids);
-        if (isOk) {
-            return BaseResp.success("数据删除成功");
-        }
-        return BaseResp.fail("数据删除失败");
-    }
+
+
+
 }

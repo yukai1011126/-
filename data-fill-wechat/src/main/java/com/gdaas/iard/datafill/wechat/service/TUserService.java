@@ -6,6 +6,7 @@
 
 package com.gdaas.iard.datafill.wechat.service;
 
+import com.alibaba.fastjson.JSONObject;
 import com.gdaas.iard.datafill.wechat.repo.dao.entity.TUserEntity;
 
 /**
@@ -15,4 +16,29 @@ import com.gdaas.iard.datafill.wechat.repo.dao.entity.TUserEntity;
  * @since 2019-09-24
  */
 public interface TUserService extends BaseService<TUserEntity> {
+
+    /**
+     * 检查微信用户登录
+     */
+    JSONObject   checkWechatUserLogin(  String code);
+
+    /**
+     *  微信用户登录
+     */
+    JSONObject   wechatUserLogin(String mobile,String password);
+
+
+    /**
+     *  微信用户登录
+     */
+    JSONObject   register( TUserEntity entity,String code);
+
+
+
+
+
+
+
+
+
 }

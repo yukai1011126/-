@@ -2,13 +2,12 @@ package com.gdaas.iard.datafill.wechat.web.common;
 
 import lombok.Data;
 
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 @Data
-public class BaseRequest {
+public class BaseRequest<T> {
     Integer page=1;
     Integer rows=10;
-    ConcurrentHashMap<String,Object> param;
+    String code;
+    T param;
 
 }
