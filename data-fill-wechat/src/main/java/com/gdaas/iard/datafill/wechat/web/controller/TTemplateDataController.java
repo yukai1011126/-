@@ -7,10 +7,10 @@
 package com.gdaas.iard.datafill.wechat.web.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.gdaas.iard.datafill.common.BaseRequest;
+import com.gdaas.iard.datafill.common.BaseResp;
 import com.gdaas.iard.datafill.wechat.service.TTemplateDataService;
 import com.gdaas.iard.datafill.wechat.repo.dao.entity.TTemplateDataEntity;
-import com.gdaas.iard.datafill.wechat.web.common.BaseRequest;
-import com.gdaas.iard.datafill.wechat.web.common.BaseResp;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -49,7 +49,7 @@ public class TTemplateDataController {
     @ApiOperation("查询分页")
     @GetMapping("/list")
     public BaseResp findListByPage(@RequestParam(name = "page", defaultValue = "1") int pageIndex,
-            @RequestParam(name = "rows", defaultValue = "20") int step) {
+                                   @RequestParam(name = "rows", defaultValue = "20") int step) {
         Page page = new Page(pageIndex, step);
         targetService.page(page, null);
         return BaseResp.success(page);

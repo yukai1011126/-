@@ -6,9 +6,9 @@
 
 package com.gdaas.iard.datafill.wechat.web.controller;
 
+import com.gdaas.iard.datafill.common.BaseResp;
 import com.gdaas.iard.datafill.wechat.service.TDepartmentService;
 import com.gdaas.iard.datafill.wechat.repo.dao.entity.TDepartmentEntity;
-import com.gdaas.iard.datafill.wechat.web.common.BaseResp;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

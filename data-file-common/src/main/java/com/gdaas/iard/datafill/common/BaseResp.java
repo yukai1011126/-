@@ -4,7 +4,7 @@
  * All Rights Reserved.
  */
 
-package com.gdaas.iard.datafill.wechat.web.common;
+package com.gdaas.iard.datafill.common;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

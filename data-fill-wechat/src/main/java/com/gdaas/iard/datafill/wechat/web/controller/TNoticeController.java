@@ -7,20 +7,17 @@
 package com.gdaas.iard.datafill.wechat.web.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.gdaas.iard.datafill.common.BaseRequest;
+import com.gdaas.iard.datafill.common.BaseResp;
 import com.gdaas.iard.datafill.wechat.service.TNoticeService;
 import com.gdaas.iard.datafill.wechat.repo.dao.entity.TNoticeEntity;
-import com.gdaas.iard.datafill.wechat.web.common.BaseRequest;
-import com.gdaas.iard.datafill.wechat.web.common.BaseResp;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * <p> 前端控制器</p>

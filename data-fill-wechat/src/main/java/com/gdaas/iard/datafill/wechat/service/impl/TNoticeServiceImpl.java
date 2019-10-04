@@ -6,10 +6,10 @@
 
 package com.gdaas.iard.datafill.wechat.service.impl;
 
+import com.gdaas.iard.datafill.wechat.service.AbstractBaseService;
+import com.gdaas.iard.datafill.wechat.service.TNoticeService;
 import com.gdaas.iard.datafill.wechat.repo.dao.entity.TNoticeEntity;
 import com.gdaas.iard.datafill.wechat.repo.dao.mapper.TNoticeDao;
-import com.gdaas.iard.datafill.wechat.service.TNoticeService;
-import com.gdaas.iard.datafill.wechat.service.AbstractBaseService;
 import org.springframework.stereotype.Service;
 
 /**

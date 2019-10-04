@@ -1,4 +1,4 @@
-package com.gdaas.iard.datafill.wechat.web.common;
+package com.gdaas.iard.datafill.common;
 
 import lombok.Data;
 

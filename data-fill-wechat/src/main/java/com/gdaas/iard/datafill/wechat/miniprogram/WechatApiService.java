@@ -1,10 +1,8 @@
-package com.gdaas.iard.datafill.wechat.common;
+package com.gdaas.iard.datafill.wechat.miniprogram;
 
 
-import com.alibaba.fastjson.JSONObject;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.cloud.openfeign.FeignClientProperties;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

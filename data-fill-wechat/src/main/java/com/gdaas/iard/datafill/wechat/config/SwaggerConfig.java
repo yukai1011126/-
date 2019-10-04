@@ -6,7 +6,7 @@
 
 package com.gdaas.iard.datafill.wechat.config;
 
-import com.gdaas.iard.datafill.wechat.web.common.SystemConstant;
+import com.gdaas.iard.datafill.common.SystemConstant;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

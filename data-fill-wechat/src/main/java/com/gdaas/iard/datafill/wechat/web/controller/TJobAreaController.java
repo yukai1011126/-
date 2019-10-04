@@ -6,9 +6,9 @@
 
 package com.gdaas.iard.datafill.wechat.web.controller;
 
-import com.gdaas.iard.datafill.wechat.service.TJobAreaService;
+import com.gdaas.iard.datafill.common.BaseResp;
 import com.gdaas.iard.datafill.wechat.repo.dao.entity.TJobAreaEntity;
-import com.gdaas.iard.datafill.wechat.web.common.BaseResp;
+import com.gdaas.iard.datafill.wechat.service.TJobAreaService;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -47,7 +47,7 @@ public class TJobAreaController {
     @ApiOperation("查询分页")
     @GetMapping("/list")
     public BaseResp findListByPage(@RequestParam(name = "page", defaultValue = "1") int pageIndex,
-            @RequestParam(name = "rows", defaultValue = "20") int step) {
+                                   @RequestParam(name = "rows", defaultValue = "20") int step) {
         Page page = new Page(pageIndex, step);
         targetService.page(page, null);
         return BaseResp.success(page);
@@ -64,22 +64,7 @@ public class TJobAreaController {
         List<TJobAreaEntity> models = targetService.list(null);
         return BaseResp.success(models);
     }
-
-    /**
-     * 根据ID查找数据
-     *
-     * @author jerryniu
-     */
-    @ApiOperation("查询单条记录")
-    @GetMapping("/find")
-    public BaseResp find(Long id) {
-        TJobAreaEntity entity = targetService.getById(id);
-        if (entity == null) {
-            return BaseResp.fail("尚未查询到此ID");
-        }
-        return BaseResp.success(entity);
-    }
-
+ 
     /**
      * 添加数据
      *

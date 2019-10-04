@@ -7,7 +7,7 @@
 package com.gdaas.iard.datafill.wechat.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.gdaas.iard.datafill.wechat.web.common.SystemConstant;
+import com.gdaas.iard.datafill.common.SystemConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.web.ErrorProperties;

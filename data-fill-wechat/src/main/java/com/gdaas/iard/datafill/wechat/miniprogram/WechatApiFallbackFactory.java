@@ -1,4 +1,4 @@
-package com.gdaas.iard.datafill.wechat.common;
+package com.gdaas.iard.datafill.wechat.miniprogram;
 
 import com.alibaba.fastjson.JSONObject;
 import feign.hystrix.FallbackFactory;

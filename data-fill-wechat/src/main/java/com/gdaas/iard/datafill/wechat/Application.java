@@ -1,13 +1,10 @@
 package com.gdaas.iard.datafill.wechat;
 
 
-import com.gdaas.iard.datafill.wechat.common.util.SecurityUtil;
-import com.gdaas.iard.datafill.wechat.web.common.BaseResp;
+import com.gdaas.iard.datafill.common.util.SecurityUtil;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.openfeign.EnableFeignClients;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication

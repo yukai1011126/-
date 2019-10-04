@@ -9,25 +9,23 @@ package com.gdaas.iard.datafill.wechat.service.impl;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.gdaas.iard.datafill.wechat.common.WechatApiService;
-import com.gdaas.iard.datafill.wechat.common.util.SecurityUtil;
+import com.gdaas.iard.datafill.common.BaseCode;
+import com.gdaas.iard.datafill.common.util.SecurityUtil;
 import com.gdaas.iard.datafill.wechat.repo.dao.entity.TUserEntity;
-import com.gdaas.iard.datafill.wechat.repo.dao.mapper.TUserDao;
-import com.gdaas.iard.datafill.wechat.service.TUserService;
 import com.gdaas.iard.datafill.wechat.service.AbstractBaseService;
-import com.gdaas.iard.datafill.wechat.web.common.BaseCode;
+import com.gdaas.iard.datafill.wechat.service.TUserService;
+import com.gdaas.iard.datafill.wechat.miniprogram.WechatApiService;
+import com.gdaas.iard.datafill.wechat.repo.dao.mapper.TUserDao;
 import com.github.javafaker.Faker;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.Locale;
-import java.util.UUID;
 
 /**
  * <p> 服务实现类</p>

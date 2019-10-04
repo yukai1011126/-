@@ -6,10 +6,10 @@
 
 package com.gdaas.iard.datafill.wechat.service.impl;
 
+import com.gdaas.iard.datafill.wechat.service.AbstractBaseService;
+import com.gdaas.iard.datafill.wechat.service.TRoleService;
 import com.gdaas.iard.datafill.wechat.repo.dao.entity.TRoleEntity;
 import com.gdaas.iard.datafill.wechat.repo.dao.mapper.TRoleDao;
-import com.gdaas.iard.datafill.wechat.service.TRoleService;
-import com.gdaas.iard.datafill.wechat.service.AbstractBaseService;
 import org.springframework.stereotype.Service;
 
 /**

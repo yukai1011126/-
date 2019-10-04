@@ -10,7 +10,7 @@ import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.PerformanceInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.SqlExplainInterceptor;
-import com.gdaas.iard.datafill.wechat.web.common.SystemConstant;
+import com.gdaas.iard.datafill.common.SystemConstant;
 import org.apache.ibatis.reflection.MetaObject;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
@@ -28,7 +28,7 @@ import java.util.Properties;
  * @since 1.0.0
  */
 @Configuration
-@MapperScan("com.gdaas.iard.datafill.wechat.repo.dao*")
+@MapperScan("com.gdaas.iard.datafill.wechat.repo.**")
 public class MybatisPlusConfig {
     @Bean
     public PaginationInterceptor paginationInterceptor() {

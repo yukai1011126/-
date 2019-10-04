@@ -8,6 +8,7 @@ package com.gdaas.iard.datafill.wechat.repo.dao.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.util.Date;
+
 import com.gdaas.iard.datafill.wechat.repo.dao.AbstractBaseEntity;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;

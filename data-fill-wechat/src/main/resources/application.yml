@@ -26,7 +26,7 @@ mybatis-plus:
       # 驼峰下划线转换
       column-underline: true
       # 数据库类型
-      db-type: MYSQL
+      db-type: POSTGRESQL
   configuration:
     # 开启mybatis驼峰命名
     map-underscore-to-camel-case: true

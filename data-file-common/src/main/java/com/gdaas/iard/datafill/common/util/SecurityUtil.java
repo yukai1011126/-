@@ -1,4 +1,4 @@
-package com.gdaas.iard.datafill.wechat.common.util;
+package com.gdaas.iard.datafill.common.util;
 
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;

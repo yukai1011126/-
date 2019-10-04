@@ -6,9 +6,9 @@
 
 package com.gdaas.iard.datafill.wechat.service.impl;
 
-import com.gdaas.iard.datafill.wechat.repo.dao.entity.TBaseConfigEntity;
 import com.gdaas.iard.datafill.wechat.repo.dao.mapper.TBaseConfigDao;
 import com.gdaas.iard.datafill.wechat.service.TBaseConfigService;
+import com.gdaas.iard.datafill.wechat.repo.dao.entity.TBaseConfigEntity;
 import com.gdaas.iard.datafill.wechat.service.AbstractBaseService;
 import org.springframework.stereotype.Service;
 

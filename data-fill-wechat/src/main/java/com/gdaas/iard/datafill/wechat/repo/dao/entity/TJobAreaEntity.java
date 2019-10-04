@@ -11,7 +11,6 @@ import java.util.Date;
 import com.gdaas.iard.datafill.wechat.repo.dao.AbstractBaseEntity;
 import com.baomidou.mybatisplus.annotation.TableField;
 import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;

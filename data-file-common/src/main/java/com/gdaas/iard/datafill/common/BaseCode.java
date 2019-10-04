@@ -4,7 +4,7 @@
  * All Rights Reserved.
  */
 
-package com.gdaas.iard.datafill.wechat.web.common;
+package com.gdaas.iard.datafill.common;
 
 /**
  * <p>description : 基础回复编码</p>

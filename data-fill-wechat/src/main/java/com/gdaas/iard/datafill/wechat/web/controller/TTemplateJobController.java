@@ -6,20 +6,17 @@
 
 package com.gdaas.iard.datafill.wechat.web.controller;
 
+import com.gdaas.iard.datafill.common.BaseRequest;
+import com.gdaas.iard.datafill.common.BaseResp;
+import com.gdaas.iard.datafill.wechat.repo.dao.entity.TTemplateJobEntity;
 import com.gdaas.iard.datafill.wechat.repo.dao.entity.TUserEntity;
 import com.gdaas.iard.datafill.wechat.service.TTemplateJobService;
-import com.gdaas.iard.datafill.wechat.repo.dao.entity.TTemplateJobEntity;
 import com.gdaas.iard.datafill.wechat.service.TUserService;
-import com.gdaas.iard.datafill.wechat.web.common.BaseRequest;
-import com.gdaas.iard.datafill.wechat.web.common.BaseResp;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -53,7 +50,7 @@ public class TTemplateJobController {
     @ApiOperation("查询分页")
     @GetMapping("/list")
     public BaseResp findListByPage(@RequestParam(name = "page", defaultValue = "1") int pageIndex,
-            @RequestParam(name = "rows", defaultValue = "20") int step) {
+                                   @RequestParam(name = "rows", defaultValue = "20") int step) {
         Page page = new Page(pageIndex, step);
         targetService.page(page, null);
         return BaseResp.success(page);
@@ -92,7 +89,7 @@ public class TTemplateJobController {
      * @author jerryniu
      */
     @ApiOperation("查询单条记录")
-    @GetMapping("/find")
+    @GetMapping("/findMyJobs")
     public BaseResp findMyJobs(@RequestBody BaseRequest<TUserEntity> user ) {
         BaseResp baseResp=  BaseResp.success("asdf");
 
