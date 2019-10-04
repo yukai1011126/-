@@ -12,7 +12,7 @@ public class CreateorMybatisPlusORM {
     public void genAllTest() {
         CreedOrm.mpgStandalone().genAll();
 //        CreedOrm.mpgStandalone().genXml();
-        CreedOrm.mpgStandalone().genWeb();
+//        CreedOrm.mpgStandalone().genWeb();
     }
 
 }
