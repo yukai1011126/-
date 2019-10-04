@@ -19,6 +19,7 @@ import lombok.experimental.Accessors;
 import java.io.Serializable;
 
 /**
+ *
  * <p></p>
  *
  * @author like
@@ -35,21 +36,19 @@ public class TDataDictEntity extends AbstractBaseEntity<TDataDictEntity> {
     @TableId("id")
     private String id;
 
-    @ApiModelProperty(value = "一级指标 ")
-    @TableField("level1")
-    private String level1;
+    @TableId("id")
+    private String name;
+    @TableId("code")
+    private String code;
+    @TableId("parent_id")
+    private String parentId;
+    @TableId("level")
+    private String level;
+    @TableId("path")
+    private String path;
+    @TableId("mergeName")
+    private String mergeName;
 
-    @ApiModelProperty(value = "二级指标 ")
-    @TableField("level2")
-    private String level2;
-
-    @ApiModelProperty(value = "三级指标 ")
-    @TableField("level3")
-    private String level3;
-
-    @ApiModelProperty(value = "四级指标 ")
-    @TableField("level4")
-    private String level4;
 
     @ApiModelProperty(value = "计量单位 ")
     @TableField("unit")

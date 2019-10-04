@@ -6,7 +6,6 @@
 
 package com.gdaas.iard.datafill.wechat.repo.dao.mapper;
 
-import com.gdaas.iard.datafill.wechat.repo.dao.entity.TDictIndexEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
