@@ -6,8 +6,8 @@
 
 package com.gdaas.iard.datafill.admin.web.controller;
 
-import com.gdaas.iard.datafill.admin.service.TUserService;
-import com.gdaas.iard.datafill.admin.repo.dao.entity.TUserEntity;
+import com.gdaas.iard.datafill.admin.service.TRoleService;
+import com.gdaas.iard.datafill.admin.repo.dao.entity.TRoleEntity;
 import com.gdaas.iard.datafill.admin.web.common.BaseResp;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 /**
- * <p>用户表 前端控制器</p>
+ * <p>角色表 前端控制器</p>
  *
  * 增POST 删DELETE 改PUT 查GET
  * CRUD (POST GET PUT DELETE)
@@ -32,12 +32,12 @@ import java.util.List;
  * @author like
  * @since 2019-10-05
  */
-@Api(tags = "TUserController")
+@Api(tags = "TRoleController")
 @RestController
-@RequestMapping("/TUserController")
-public class TUserController {
+@RequestMapping("/TRoleController")
+public class TRoleController {
     @Autowired
-    private TUserService targetService;
+    private TRoleService targetService;
 
     /**
      * 获取数据列表
@@ -61,7 +61,7 @@ public class TUserController {
     @ApiOperation("查询所有数据")
     @GetMapping("/all")
     public BaseResp findAll() {
-        List<TUserEntity> models = targetService.list(null);
+        List<TRoleEntity> models = targetService.list(null);
         return BaseResp.success(models);
     }
 
@@ -72,8 +72,8 @@ public class TUserController {
      */
     @ApiOperation("查询单条记录")
     @GetMapping("/find")
-    public BaseResp find(String id) {
-        TUserEntity entity = targetService.getById(id);
+    public BaseResp find(Long id) {
+        TRoleEntity entity = targetService.getById(id);
         if (entity == null) {
             return BaseResp.fail("尚未查询到此ID");
         }
@@ -87,7 +87,7 @@ public class TUserController {
      */
     @ApiOperation(value = "添加单条记录", notes = "id自增")
     @PostMapping(value = "/add")
-    public BaseResp addItem(@RequestBody TUserEntity entity) {
+    public BaseResp addItem(@RequestBody TRoleEntity entity) {
         boolean isOk = targetService.save(entity);
         if (isOk) {
             return BaseResp.success("数据添加成功");
@@ -102,7 +102,7 @@ public class TUserController {
      */
     @ApiOperation("更新单条记录")
     @PutMapping(value = "/update")
-    public BaseResp updateItem(@RequestBody TUserEntity entity) {
+    public BaseResp updateItem(@RequestBody TRoleEntity entity) {
         boolean isOk = targetService.updateById(entity);
         if (isOk) {
             return BaseResp.success("数据更改成功");
@@ -117,7 +117,7 @@ public class TUserController {
      */
     @ApiOperation("删除记录")
     @DeleteMapping("/del")
-    public BaseResp deleteItems(List<String> ids) {
+    public BaseResp deleteItems(List<Long> ids) {
         boolean isOk = targetService.removeByIds(ids);
         if (isOk) {
             return BaseResp.success("数据删除成功");
