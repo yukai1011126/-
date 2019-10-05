@@ -1,7 +1,5 @@
 server:
   port: 8091
-logger:
-  config: classpath:log4j2.xml
 spring:
   profiles:
     active: pg
@@ -34,14 +32,3 @@ mybatis-plus:
     map-underscore-to-camel-case: true
     # 关闭缓存
     cache-enabled: false
-    #开启或者关闭freemarker和thymeleaf的页面缓存
-  spring:
-    freemarker:
-      cache: false
-    thymeleaf:
-      cache: false
-    devtools:
-      restart:
-        enabled: true
-    #需要开启热部署的文件目录
-        additional-paths: src/main/java
