@@ -9,7 +9,6 @@ package com.gdaas.iard.datafill.wechat.repo.dao.entity;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.util.Date;
 import com.gdaas.iard.datafill.wechat.repo.dao.AbstractBaseEntity;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -19,60 +18,62 @@ import lombok.experimental.Accessors;
 import java.io.Serializable;
 
 /**
- * <p></p>
+ * <p>我的报表</p>
  *
  * @author like
- * @since 2019-09-24
+ * @since 2019-10-04
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-@TableName("t_notice")
-@ApiModel(value = "TNoticeEntity对象", description = "")
-public class TNoticeEntity extends AbstractBaseEntity<TNoticeEntity> {
+@TableName("t_my_report")
+@ApiModel(value = "TMyReportEntity对象", description = "我的报表")
+public class TMyReportEntity extends AbstractBaseEntity<TMyReportEntity> {
 
     @ApiModelProperty(value = "主键ID ")
-    @TableId("id")
+    @TableField("id")
     private String id;
 
-    @ApiModelProperty(value = "公告标题  ")
-    @TableField("title")
-    private String title;
+    @ApiModelProperty(value = "模板ID ")
+    @TableField("template_id")
+    private String templateId;
 
-    @ApiModelProperty(value = "公告摘要 ")
-    @TableField("summary")
-    private String summary;
+    @ApiModelProperty(value = "模板名 ")
+    @TableField("template_name")
+    private String templateName;
 
-    @ApiModelProperty(value = "公告内容 ")
-    @TableField("content")
-    private String content;
+    @ApiModelProperty(value = "报表名 ")
+    @TableField("name")
+    private String name;
 
-    @ApiModelProperty(value = "发布日期 ")
-    @TableField("notice_date")
-    private Date noticeDate;
+    @ApiModelProperty(value = "报表日期 ")
+    @TableField("report_date")
+    private Date reportDate;
 
-    @ApiModelProperty(value = "发布人 ")
+    @ApiModelProperty(value = "报表URL ")
+    @TableField("report_url")
+    private String reportUrl;
+
+    @ApiModelProperty(value = "报表用户ID ")
+    @TableField("user_id")
+    private String userId;
+
+    @ApiModelProperty(value = "报表用户ID ")
     @TableField("user_name")
     private String userName;
 
-    @ApiModelProperty(value = "有效期 ")
-    @TableField("expire_date")
-    private Date expireDate;
-
-    @ApiModelProperty(value = "状态 ")
+    @ApiModelProperty(value = "状态 1  有效，0 无效")
     @TableField("status")
     private String status;
 
-    @ApiModelProperty(value = "记录创建时间 ")
     @TableField("create_time")
     private Date createTime;
 
-    @ApiModelProperty(value = "修改时间时间 ")
     @TableField("update_time")
     private Date updateTime;
 
     @Override
     protected Serializable pkVal() {
-        return this.id;
+        return null;
     }
 }

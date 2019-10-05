@@ -5,6 +5,8 @@
  */
 
 package com.gdaas.iard.datafill.wechat.config;
+import com.gdaas.iard.datafill.common.BaseResp;
+import lombok.extern.log4j.Log4j2;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -21,7 +23,7 @@ import java.util.Map;
  * @since 1.0.0
  */
 @ControllerAdvice
-@Slf4j
+@Log4j2
 public class GlobalExceptionHandler {
     public static final String DEFAULT_ERROR_VIEW = "error";
 //
@@ -42,11 +44,13 @@ public class GlobalExceptionHandler {
 //    }
     @ResponseBody
     @ExceptionHandler(value = Exception.class)
-    public Map errorHandler(Exception ex) {
-        Map map = new HashMap();
-        map.put("code", 500);
-        map.put("msg", ex.getMessage());
-        return map;
+    public BaseResp errorHandler(Exception ex) {
+
+        ex.printStackTrace();
+        log.info(ex.getMessage());
+        BaseResp baseResp=  BaseResp.error();
+        baseResp.setData(ex.getLocalizedMessage());
+        return baseResp;
     }
 
 

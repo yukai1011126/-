@@ -42,7 +42,7 @@ public class TNoticeController {
      */
     @ApiOperation("查询分页")
     @PostMapping("/list")
-    public BaseResp findListByPage(@RequestBody BaseRequest<HashMap> param) {
+    public BaseResp findListByPage(@RequestBody BaseRequest<TNoticeEntity> param) {
         Page page = new Page(param.getPage(), param.getRows());
         QueryWrapper<TNoticeEntity> queryWrapper=new QueryWrapper<>();
         queryWrapper.lambda().orderByDesc(TNoticeEntity::getNoticeDate);
@@ -61,7 +61,7 @@ public class TNoticeController {
     public BaseResp find(@RequestBody BaseRequest<TNoticeEntity> param) {
         TNoticeEntity entity = targetService.getById(param.getParam().getId());
         if (entity == null) {
-            return BaseResp.fail("尚未查询到此ID");
+            return BaseResp.fail("尚未查询到数据");
         }
         return BaseResp.success(entity);
     }

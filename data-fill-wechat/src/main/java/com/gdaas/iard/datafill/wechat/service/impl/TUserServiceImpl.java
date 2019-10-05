@@ -10,6 +10,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.gdaas.iard.datafill.common.BaseCode;
+import com.gdaas.iard.datafill.common.util.IDGenerate;
 import com.gdaas.iard.datafill.common.util.SecurityUtil;
 import com.gdaas.iard.datafill.wechat.repo.dao.entity.TUserEntity;
 import com.gdaas.iard.datafill.wechat.service.AbstractBaseService;
@@ -169,7 +170,7 @@ public class TUserServiceImpl extends AbstractBaseService<TUserDao, TUserEntity>
                     entity.setNaCl(faker.random().hex(20));
                     String enPassword= SecurityUtil.sha256Encrypt(entity.getPassword()+entity.getMobile()+entity.getNaCl());
                     entity.setPassword(enPassword);
-                    entity.setId(System.nanoTime()+"");
+                    entity.setId(IDGenerate.id());
                     entity.setStatus("0");//未审核状态
                     save(entity);
                     result.put("openId", openid);
