@@ -8,6 +8,8 @@ package com.gdaas.iard.datafill.admin.repo.dao;
 
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 
+import java.util.Date;
+
 /**
  * <p>基础实体</p>
  *

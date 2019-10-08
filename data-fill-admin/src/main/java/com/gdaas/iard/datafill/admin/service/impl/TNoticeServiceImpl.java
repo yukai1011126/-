@@ -6,11 +6,15 @@
 
 package com.gdaas.iard.datafill.admin.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.gdaas.iard.datafill.admin.repo.dao.entity.TNoticeEntity;
 import com.gdaas.iard.datafill.admin.repo.dao.mapper.TNoticeDao;
 import com.gdaas.iard.datafill.admin.service.TNoticeService;
 import com.gdaas.iard.datafill.admin.service.AbstractBaseService;
 import org.springframework.stereotype.Service;
+
+import java.util.Map;
 
 /**
  * <p> 服务实现类</p>
@@ -21,4 +25,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class TNoticeServiceImpl extends AbstractBaseService<TNoticeDao, TNoticeEntity>
         implements TNoticeService {
+
+    public IPage queryVague(IPage page, Map<String,Object> queryMap) {
+        return this.baseMapper.selectPageForVague(page, queryMap);
+    }
 }

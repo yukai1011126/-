@@ -6,22 +6,25 @@
 
 package com.gdaas.iard.datafill.admin.web.controller;
 
-import com.gdaas.iard.datafill.admin.service.TNoticeService;
-import com.gdaas.iard.datafill.admin.repo.dao.entity.TNoticeEntity;
-import com.gdaas.iard.datafill.admin.web.common.BaseResp;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.gdaas.iard.datafill.admin.repo.dao.entity.TNoticeEntity;
+import com.gdaas.iard.datafill.admin.service.TNoticeService;
+import com.gdaas.iard.datafill.admin.util.SingletonEnum;
+import com.gdaas.iard.datafill.admin.web.common.BaseResp;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.*;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>通知消息表 前端控制器</p>
@@ -32,13 +35,15 @@ import java.util.List;
  * @author like
  * @since 2019-10-05
  */
+@Log4j2
+@CrossOrigin
 @Api(tags = "TNoticeController")
 @RestController
 @RequestMapping("/TNoticeController")
 public class TNoticeController {
     @Autowired
     private TNoticeService targetService;
-
+    private SimpleDateFormat slmf = SingletonEnum.SIMPLEDATE.getSimpleDate();
     /**
      * 获取数据列表
      *
@@ -46,10 +51,42 @@ public class TNoticeController {
      */
     @ApiOperation("查询分页")
     @GetMapping("/list")
-    public BaseResp findListByPage(@RequestParam(name = "page", defaultValue = "1") int pageIndex,
-            @RequestParam(name = "rows", defaultValue = "20") int step) {
+    public BaseResp findListByPage( @RequestParam(name = "page", defaultValue = "1") int pageIndex,
+                                    @RequestParam(name = "rows", defaultValue = "20") int step,
+                                    @RequestParam(name = "sort", defaultValue = "+id") String sort,
+                                    @RequestParam(name = "vague", defaultValue = "") String vague,
+                                    @RequestParam(name = "status", defaultValue = "") String status) {
         Page page = new Page(pageIndex, step);
-        targetService.page(page, null);
+        String asc = null;
+        // 支持排序
+        if(sort.contains("+")){
+            sort = sort.replace("+","");
+            page.setAsc(sort);
+            asc = "asc";
+        }else if (sort.contains("-")){
+            sort = sort.replace("-","");
+            page.setDesc(sort);
+            asc = "desc";
+        }
+        // 支持模糊查询
+        if(!StringUtils.isEmpty(vague)){
+            log.info("查询参数status:{},sort:{},vague:{},asc:{}",status,sort,vague,asc);
+            Map<String, Object> queryMap = new HashMap<>();
+            queryMap.put("vague",vague);
+            queryMap.put("status",status);
+            queryMap.put("sort",sort);
+            queryMap.put("asc",asc);
+            targetService.queryVague(page, queryMap);
+            log.info("查询结果：{}",page.toString());
+        }else{
+            if(StringUtils.isEmpty(status)){
+                targetService.page(page);
+                return BaseResp.success(page);
+            }
+            QueryWrapper<TNoticeEntity> wrapper=new QueryWrapper<>();
+            wrapper.eq("status", status);
+            targetService.page(page, wrapper);
+        }
         return BaseResp.success(page);
     }
 
@@ -87,7 +124,10 @@ public class TNoticeController {
      */
     @ApiOperation(value = "添加单条记录", notes = "id自增")
     @PostMapping(value = "/add")
-    public BaseResp addItem(@RequestBody TNoticeEntity entity) {
+    public BaseResp addItem(@RequestBody TNoticeEntity entity) throws ParseException {
+        Date time = slmf.parse(slmf.format(new Date()));
+        entity.setCreateTime(time);
+        entity.setUpdateTime(time);
         boolean isOk = targetService.save(entity);
         if (isOk) {
             return BaseResp.success("数据添加成功");

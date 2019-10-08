@@ -14,20 +14,20 @@ package com.gdaas.iard.datafill.admin.web.common;
  */
 public enum BaseCode {
     /**成功*/
-    SUCCESS("1000", "成功"),
+    SUCCESS(1000, "成功"),
     /**失败*/
-    FAIL("9999", "失败"),
+    FAIL(9999, "失败"),
     /**异常*/
-    ERROR("0000", "未知错误,请联系管理员"),
+    ERROR(0000, "未知错误,请联系管理员"),
     /**校验异常*/
-    REVIEW("0001", "校验异常");
+    REVIEW(0001, "校验异常");
 
     /**回复码*/
-    private String code;
+    private Integer code;
     /**回复信息*/
     private String msg;
 
-    BaseCode(String code, String msg) {
+    BaseCode(Integer code, String msg) {
         this.code = code;
         this.msg = msg;
     }
@@ -44,7 +44,7 @@ public enum BaseCode {
         return null;
     }
 
-    public String getCode() {
+    public Integer getCode() {
         return code;
     }
 

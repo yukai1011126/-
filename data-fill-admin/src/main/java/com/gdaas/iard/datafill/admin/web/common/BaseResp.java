@@ -10,6 +10,9 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * <p>description : 基础回复类</p>
  *
@@ -19,15 +22,18 @@ import lombok.Data;
 @ApiModel("回复基类")
 @Data
 public class BaseResp<T> {
+    /**数据载体*/
+    @ApiModelProperty("数据载体")
+    private Map<String,Object> data;
     /**描述*/
     @ApiModelProperty("描述")
     private String msg;
     /**编码*/
     @ApiModelProperty("编码")
-    private String code;
+    private Integer code;
     /**数据内容*/
     @ApiModelProperty("数据")
-    private T data;
+    private T list;
 
     /**
      * <p>description : 默认成功(不返回数据)</p>
@@ -96,36 +102,44 @@ public class BaseResp<T> {
      * <p>description : 自定义返回码与数据(需要在BaseCode中建立新的枚举类)</p>
      */
     public static <T> BaseResp<T> custom(BaseCode code, T data) {
+        Map<String ,Object> map = new HashMap<>();
         BaseResp<T> resp = new BaseResp();
-        resp.setCode(code.getCode());
-        resp.setMsg(code.getMsg());
-        resp.setData(data);
+        map.put("code",code.getCode());
+        map.put("msg",code.getMsg());
+        map.put("data",data);
+        resp.setData(map);
         return resp;
     }
 
     /**
      * <p>description : 自定义返回码与数据</p>
      */
-    public static <T> BaseResp<T> custom(String code, String msg, T data) {
+    public static <T> BaseResp<T> custom(Integer code, String msg, T data) {
+        Map<String ,Object> map = new HashMap<>();
         BaseResp<T> resp = new BaseResp();
-        resp.setCode(code);
-        resp.setMsg(msg);
-        resp.setData(data);
+        map.put("code",code);
+        map.put("msg",msg);
+        map.put("data",data);
+        resp.setData(map);
         return resp;
     }
 
     private static <T> BaseResp<T> discuss(BaseCode code, T data) {
+        Map<String ,Object> map = new HashMap<>();
         BaseResp<T> resp = new BaseResp();
-        resp.setCode(code.getCode());
-        resp.setMsg(code.getMsg());
-        resp.setData(data);
+        map.put("code",code.getCode());
+        map.put("msg",code.getMsg());
+        map.put("data",data);
+        resp.setData(map);
         return resp;
     }
     private static <T> BaseResp<T> discuss(String msg ,BaseCode code, T data) {
+        Map<String ,Object> map = new HashMap<>();
         BaseResp<T> resp = new BaseResp();
-        resp.setCode(code.getCode());
-        resp.setMsg(msg);
-        resp.setData(data);
+        map.put("code",code.getCode());
+        map.put("msg",msg);
+        map.put("data",data);
+        resp.setData(map);
         return resp;
     }
 }

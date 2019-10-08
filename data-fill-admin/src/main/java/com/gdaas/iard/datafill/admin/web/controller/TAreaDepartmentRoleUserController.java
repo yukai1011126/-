@@ -12,26 +12,23 @@ import com.gdaas.iard.datafill.admin.web.common.BaseResp;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 /**
  * <p> 前端控制器</p>
- *
+ * <p>
  * 增POST 删DELETE 改PUT 查GET
  * CRUD (POST GET PUT DELETE)
  *
  * @author like
  * @since 2019-10-05
  */
+@Log4j2
+@CrossOrigin
 @Api(tags = "TAreaDepartmentRoleUserController")
 @RestController
 @RequestMapping("/TAreaDepartmentRoleUserController")
@@ -47,7 +44,7 @@ public class TAreaDepartmentRoleUserController {
     @ApiOperation("查询分页")
     @GetMapping("/list")
     public BaseResp findListByPage(@RequestParam(name = "page", defaultValue = "1") int pageIndex,
-            @RequestParam(name = "rows", defaultValue = "20") int step) {
+                                   @RequestParam(name = "rows", defaultValue = "20") int step) {
         Page page = new Page(pageIndex, step);
         targetService.page(page, null);
         return BaseResp.success(page);
