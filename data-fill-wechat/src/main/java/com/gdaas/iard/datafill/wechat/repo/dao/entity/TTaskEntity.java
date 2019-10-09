@@ -21,7 +21,7 @@ import java.io.Serializable;
  * <p>我的待处理工作任务表</p>
  *
  * @author like
- * @since 2019-10-04
+ * @since 2019-10-08
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -58,7 +58,7 @@ public class TTaskEntity extends AbstractBaseEntity<TTaskEntity> {
     @TableField("dept_id")
     private String deptId;
 
-    @ApiModelProperty(value = "任务ID ")
+    @ApiModelProperty(value = "模板任务表ID 模板任务表ID")
     @TableField("task_id")
     private String taskId;
 
@@ -66,17 +66,17 @@ public class TTaskEntity extends AbstractBaseEntity<TTaskEntity> {
     @TableField("task_name")
     private String taskName;
 
-    @ApiModelProperty(value = "审核人员ID ")
-    @TableField("audit_user_id")
-    private String auditUserId;
+    @ApiModelProperty(value = "任务处理人员ID ")
+    @TableField("user_id")
+    private String userId;
 
-    @ApiModelProperty(value = "任务审核人员 ")
-    @TableField("audit_user")
-    private String auditUser;
+    @ApiModelProperty(value = "任务处理人员 ")
+    @TableField("user_name")
+    private String userName;
 
-    @ApiModelProperty(value = "审核任务状态 0 待填报，1 待审核")
-    @TableField("status")
-    private String status;
+    @ApiModelProperty(value = "审核任务类型 0 待填报，1 待审核 ，2 待下达 ")
+    @TableField("task_type")
+    private String taskType;
 
     @ApiModelProperty(value = "审核截止时间  ")
     @TableField("end_time")

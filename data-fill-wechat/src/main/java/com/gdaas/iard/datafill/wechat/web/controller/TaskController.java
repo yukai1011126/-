@@ -53,7 +53,7 @@ public class TaskController {
            log.info(request);
            Page page = new Page(request.getPage(), request.getRows());
            QueryWrapper<TTaskEntity> wrapper=new QueryWrapper<>();
-           wrapper.lambda().eq(TTaskEntity::getAuditUserId,request.getParam().getAuditUserId())
+           wrapper.lambda().eq(TTaskEntity::getUserId,request.getParam().getUserId())
            .orderByDesc(TTaskEntity::getCreateTime);
            targetService.page(page, wrapper);
            baseResp.setData(page);
@@ -104,7 +104,7 @@ public class TaskController {
         BaseResp baseResp= BaseResp.success();
         try{
             QueryWrapper<TTaskEntity> wrapper=new QueryWrapper<>();
-            wrapper.lambda().eq(TTaskEntity::getAuditUserId,request.getParam().getAuditUserId());
+            wrapper.lambda().eq(TTaskEntity::getUserId,request.getParam().getUserId());
             int count= targetService.count(wrapper);
             Map<String,Object>  data=new ConcurrentHashMap<>();
             data.put("count",count);
@@ -121,9 +121,9 @@ public class TaskController {
     /**
      * 查询我的任务数量
      *
-     * @author jerryniu
+     * @author
      */
-    @ApiOperation("查询分页")
+    @ApiOperation("查询我的任务对应的值 ")
     @PostMapping("/queryTaskDataValue")
     public BaseResp queryTaskDataValue(@RequestBody BaseRequest<TTemplateDataValueEntity> request) {
         BaseResp baseResp= BaseResp.success();
@@ -142,5 +142,8 @@ public class TaskController {
 
 
     }
+
+
+
 
 }

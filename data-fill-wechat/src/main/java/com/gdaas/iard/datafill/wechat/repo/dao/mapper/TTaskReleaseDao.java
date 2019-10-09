@@ -6,14 +6,14 @@
 
 package com.gdaas.iard.datafill.wechat.repo.dao.mapper;
 
-import com.gdaas.iard.datafill.wechat.repo.dao.entity.TTaskAreaEntity;
+import com.gdaas.iard.datafill.wechat.repo.dao.entity.TTaskReleaseEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
- * <p>任务机构表 Mapper 接口</p>
+ * <p>任务发布表 Mapper 接口</p>
  *
  * @author like
- * @since 2019-10-04
+ * @since 2019-10-08
  */
-public interface TTaskAreaDao extends BaseMapper<TTaskAreaEntity> {
+public interface TTaskReleaseDao extends BaseMapper<TTaskReleaseEntity> {
 }

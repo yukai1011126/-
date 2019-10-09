@@ -19,25 +19,37 @@ import lombok.experimental.Accessors;
 import java.io.Serializable;
 
 /**
- * <p></p>
+ * <p>地区-单位-角色表</p>
  *
  * @author like
- * @since 2019-09-30
+ * @since 2019-10-08
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
 @TableName("t_area_department_role_user")
-@ApiModel(value = "TAreaDepartmentRoleUserEntity对象", description = "")
+@ApiModel(value = "TAreaDepartmentRoleUserEntity对象", description = "地区-单位-角色表")
 public class TAreaDepartmentRoleUserEntity extends AbstractBaseEntity<TAreaDepartmentRoleUserEntity> {
 
     @ApiModelProperty(value = "主键ID ")
     @TableId("id")
     private String id;
 
-    @ApiModelProperty(value = "地区—单位部门ID ")
-    @TableField("area_dept_id")
-    private String areaDeptId;
+    @ApiModelProperty(value = "地区 ")
+    @TableField("area_id")
+    private String areaId;
+
+    @ApiModelProperty(value = "地区_name ")
+    @TableField("area_name")
+    private String areaName;
+
+    @ApiModelProperty(value = "单位部门表ID ")
+    @TableField("dept_id")
+    private String deptId;
+
+    @ApiModelProperty(value = "单位部门name ")
+    @TableField("dept_name")
+    private String deptName;
 
     @ApiModelProperty(value = "角色ID ")
     @TableField("role_id")
@@ -47,11 +59,15 @@ public class TAreaDepartmentRoleUserEntity extends AbstractBaseEntity<TAreaDepar
     @TableField("role_name")
     private String roleName;
 
-    @ApiModelProperty(value = "user_id ")
+    @ApiModelProperty(value = "角色类型 1 填报 2 审核 3 URL 权限角色，")
+    @TableField("role_type")
+    private String roleType;
+
+    @ApiModelProperty(value = "用户 ")
     @TableField("user_id")
     private String userId;
 
-    @ApiModelProperty(value = "user_name ")
+    @ApiModelProperty(value = "用户 ")
     @TableField("user_name")
     private String userName;
 

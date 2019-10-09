@@ -22,7 +22,7 @@ import java.io.Serializable;
  * <p></p>
  *
  * @author like
- * @since 2019-09-30
+ * @since 2019-10-08
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -46,12 +46,6 @@ public class TAreaDepartmentRoleEntity extends AbstractBaseEntity<TAreaDepartmen
     @ApiModelProperty(value = "角色名 ")
     @TableField("role_name")
     private String roleName;
-
-    @ApiModelProperty(value = "角色类型")
-    @TableField("role_type")
-    private String roleType;
-
-
 
     @ApiModelProperty(value = "记录创建时间 ")
     @TableField("create_time")

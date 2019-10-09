@@ -9,6 +9,7 @@ package com.gdaas.iard.datafill.wechat.repo.dao.entity;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.util.Date;
 import com.gdaas.iard.datafill.wechat.repo.dao.AbstractBaseEntity;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -18,20 +19,20 @@ import lombok.experimental.Accessors;
 import java.io.Serializable;
 
 /**
- * <p>任务机构表</p>
+ * <p>任务发布表</p>
  *
  * @author like
- * @since 2019-10-04
+ * @since 2019-10-08
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-@TableName("t_task_area")
-@ApiModel(value = "TTaskAreaEntity对象", description = "任务机构表")
-public class TTaskAreaEntity extends AbstractBaseEntity<TTaskAreaEntity> {
+@TableName("t_task_release")
+@ApiModel(value = "TTaskReleaseEntity对象", description = "任务发布表")
+public class TTaskReleaseEntity extends AbstractBaseEntity<TTaskReleaseEntity> {
 
     @ApiModelProperty(value = "主键ID ")
-    @TableField("id")
+    @TableId("id")
     private String id;
 
     @ApiModelProperty(value = "模板ID ")
@@ -43,24 +44,20 @@ public class TTaskAreaEntity extends AbstractBaseEntity<TTaskAreaEntity> {
     private String templateName;
 
     @ApiModelProperty(value = "任务下达机构ID 最高层级的机构ID")
+    @TableField("area_owner_id")
+    private String areaOwnerId;
+
+    @ApiModelProperty(value = "任务下达机构名 ")
+    @TableField("area_owner_name")
+    private String areaOwnerName;
+
+    @ApiModelProperty(value = "任务接收机构ID ")
     @TableField("area_id")
     private String areaId;
 
-    @ApiModelProperty(value = "任务下达机构名 ")
+    @ApiModelProperty(value = "任务接收机构名 ")
     @TableField("area_name")
     private String areaName;
-
-    @ApiModelProperty(value = "任务接收机构ID ")
-    @TableField("area_execute_id")
-    private String areaExecuteId;
-
-    @ApiModelProperty(value = "任务接收机构名 ")
-    @TableField("area_execute_name")
-    private String areaExecuteName;
-
-    @ApiModelProperty(value = "任务接收机构的层级 ")
-    @TableField("area_execute_level")
-    private String areaExecuteLevel;
 
     @ApiModelProperty(value = "任务接收单位部门名 ")
     @TableField("dept_name")
@@ -70,6 +67,18 @@ public class TTaskAreaEntity extends AbstractBaseEntity<TTaskAreaEntity> {
     @TableField("dept_id")
     private String deptId;
 
+    @ApiModelProperty(value = "任务接收单位部门对应的角色ID ")
+    @TableField("role_id")
+    private String roleId;
+
+    @ApiModelProperty(value = "任务接收单位部门对应的角色name ")
+    @TableField("role_name")
+    private String roleName;
+
+    @ApiModelProperty(value = "任务转发状态 0 初始，1 已下达  2 已接收")
+    @TableField("task_accept_status")
+    private String taskAcceptStatus;
+
     @ApiModelProperty(value = "任务ID ")
     @TableField("task_id")
     private String taskId;
@@ -77,6 +86,10 @@ public class TTaskAreaEntity extends AbstractBaseEntity<TTaskAreaEntity> {
     @ApiModelProperty(value = "任务名 ")
     @TableField("task_name")
     private String taskName;
+
+    @ApiModelProperty(value = "此机构的填报状态 0 初始 1 待填报，2 待审核  3 终审核")
+    @TableField("task_status")
+    private String taskStatus;
 
     @ApiModelProperty(value = "任务截止时间  ")
     @TableField("task_end_time")
@@ -100,6 +113,6 @@ public class TTaskAreaEntity extends AbstractBaseEntity<TTaskAreaEntity> {
 
     @Override
     protected Serializable pkVal() {
-        return null;
+        return this.id;
     }
 }

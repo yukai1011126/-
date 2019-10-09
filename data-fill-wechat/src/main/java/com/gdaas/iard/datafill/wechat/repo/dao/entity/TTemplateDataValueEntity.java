@@ -22,7 +22,7 @@ import java.io.Serializable;
  * <p>模板任务数据项值</p>
  *
  * @author like
- * @since 2019-10-05
+ * @since 2019-10-08
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -98,6 +98,26 @@ public class TTemplateDataValueEntity extends AbstractBaseEntity<TTemplateDataVa
     @ApiModelProperty(value = "任务对应的表名 ")
     @TableField("task_table")
     private String taskTable;
+
+    @ApiModelProperty(value = "统计日期 ")
+    @TableField("statistic_date")
+    private Date statisticDate;
+
+    @ApiModelProperty(value = "填报行政地区ID ")
+    @TableField("area_id")
+    private String areaId;
+
+    @ApiModelProperty(value = "填报行政地区name ")
+    @TableField("area_name")
+    private String areaName;
+
+    @ApiModelProperty(value = "填报部门单位ID ")
+    @TableField("dept_id")
+    private String deptId;
+
+    @ApiModelProperty(value = "填报部门单位name ")
+    @TableField("dept_name")
+    private String deptName;
 
     @ApiModelProperty(value = "数据项值  ")
     @TableField("data_value")

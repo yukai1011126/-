@@ -15,4 +15,7 @@ import com.gdaas.iard.datafill.wechat.repo.dao.entity.TTemplateTaskEntity;
  * @since 2019-10-04
  */
 public interface TTemplateTaskService extends BaseService<TTemplateTaskEntity> {
+
+
+
 }

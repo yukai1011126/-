@@ -21,7 +21,7 @@ import java.io.Serializable;
  * <p>任务审核记录表</p>
  *
  * @author like
- * @since 2019-10-04
+ * @since 2019-10-08
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -43,12 +43,12 @@ public class TTaskAuditLogEntity extends AbstractBaseEntity<TTaskAuditLogEntity>
     private String templateName;
 
     @ApiModelProperty(value = "任务下达机构ID 最高层级的机构ID")
-    @TableField("area_id")
-    private String areaId;
+    @TableField("area_owner_id")
+    private String areaOwnerId;
 
     @ApiModelProperty(value = "任务下达机构名 ")
-    @TableField("area_name")
-    private String areaName;
+    @TableField("area_owner_name")
+    private String areaOwnerName;
 
     @ApiModelProperty(value = "任务ID ")
     @TableField("task_id")
@@ -71,12 +71,12 @@ public class TTaskAuditLogEntity extends AbstractBaseEntity<TTaskAuditLogEntity>
     private String taskPrevUser;
 
     @ApiModelProperty(value = "审核机构id ")
-    @TableField("audit_area_id")
-    private String auditAreaId;
+    @TableField("area_id")
+    private String areaId;
 
     @ApiModelProperty(value = "审核机构名 ")
-    @TableField("audit_area_name")
-    private String auditAreaName;
+    @TableField("area_name")
+    private String areaName;
 
     @ApiModelProperty(value = "审核人员单位ID ")
     @TableField("dept_id")
@@ -85,6 +85,14 @@ public class TTaskAuditLogEntity extends AbstractBaseEntity<TTaskAuditLogEntity>
     @ApiModelProperty(value = "审核人员单位名 ")
     @TableField("dept_name")
     private String deptName;
+
+    @ApiModelProperty(value = "审核人员角色 ")
+    @TableField("role_id")
+    private String roleId;
+
+    @ApiModelProperty(value = "审核人员角色 名 ")
+    @TableField("role_name")
+    private String roleName;
 
     @ApiModelProperty(value = "审核人员ID ")
     @TableField("audit_user_id")

@@ -16,7 +16,10 @@ spring:
       max-lifetime: 1800000
   application:
     name: wechat-miniprogram-server
-
+#    打印sql
+mybatis-plus:
+   configuration:
+      log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 wechat:
   api:
     url: https://api.weixin.qq.com/

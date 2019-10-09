@@ -56,11 +56,11 @@ public class TCommAreaEntity extends AbstractBaseEntity<TCommAreaEntity> {
     @TableField("short_merge_name")
     private String shortMergeName;
 
-    @TableField("lan")
-    private String lan;
+    @TableField("longitude")
+    private String longitude;
 
-    @TableField("lat")
-    private String lat;
+    @TableField("latitude")
+    private String latitude;
 
     @TableField("pinying")
     private String pinying;
