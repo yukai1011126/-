@@ -11,7 +11,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.gdaas.iard.datafill.admin.repo.dao.entity.TNoticeEntity;
 import com.gdaas.iard.datafill.admin.service.TNoticeService;
 import com.gdaas.iard.datafill.admin.util.SingletonEnum;
-import com.gdaas.iard.datafill.admin.web.common.BaseResp;
+import com.gdaas.iard.datafill.common.BaseResp;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.log4j.Log4j2;
@@ -51,11 +51,11 @@ public class TNoticeController {
      */
     @ApiOperation("查询分页")
     @GetMapping("/list")
-    public BaseResp findListByPage( @RequestParam(name = "page", defaultValue = "1") int pageIndex,
-                                    @RequestParam(name = "rows", defaultValue = "20") int step,
-                                    @RequestParam(name = "sort", defaultValue = "+id") String sort,
-                                    @RequestParam(name = "vague", defaultValue = "") String vague,
-                                    @RequestParam(name = "status", defaultValue = "") String status) {
+    public BaseResp findListByPage(@RequestParam(name = "page", defaultValue = "1") int pageIndex,
+                                   @RequestParam(name = "rows", defaultValue = "20") int step,
+                                   @RequestParam(name = "sort", defaultValue = "+id") String sort,
+                                   @RequestParam(name = "vague", defaultValue = "") String vague,
+                                   @RequestParam(name = "status", defaultValue = "") String status) {
         Page page = new Page(pageIndex, step);
         String asc = null;
         // 支持排序

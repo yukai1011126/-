@@ -8,7 +8,7 @@ import com.gdaas.iard.datafill.admin.service.TUserService;
 import com.gdaas.iard.datafill.admin.util.FinalString;
 import com.gdaas.iard.datafill.admin.util.JwtUtil;
 import com.gdaas.iard.datafill.admin.util.SingletonEnum;
-import com.gdaas.iard.datafill.admin.web.common.BaseResp;
+import com.gdaas.iard.datafill.common.BaseResp;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,10 +18,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 @Log4j2
 @CrossOrigin
