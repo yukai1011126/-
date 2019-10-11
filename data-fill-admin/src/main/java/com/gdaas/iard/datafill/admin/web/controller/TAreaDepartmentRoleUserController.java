@@ -8,8 +8,8 @@ package com.gdaas.iard.datafill.admin.web.controller;
 
 import com.gdaas.iard.datafill.admin.service.TAreaDepartmentRoleUserService;
 import com.gdaas.iard.datafill.admin.repo.dao.entity.TAreaDepartmentRoleUserEntity;
-import com.gdaas.iard.datafill.admin.web.common.BaseResp;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.gdaas.iard.datafill.common.BaseResp;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.log4j.Log4j2;

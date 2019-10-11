@@ -7,7 +7,7 @@ import com.gdaas.iard.datafill.admin.repo.dao.entity.Users;
 import com.gdaas.iard.datafill.admin.service.TUserService;
 import com.gdaas.iard.datafill.admin.util.JwtUtil;
 import com.gdaas.iard.datafill.admin.util.SingletonEnum;
-import com.gdaas.iard.datafill.admin.web.common.BaseResp;
+import com.gdaas.iard.datafill.common.BaseResp;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
