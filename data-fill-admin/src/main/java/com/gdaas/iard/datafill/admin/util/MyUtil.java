@@ -33,8 +33,13 @@ public class MyUtil {
      * @return 实体类
      * @throws ParseException
      */
-    public static AbstractBaseEntity addOrEditDecorate(AbstractBaseEntity body, boolean isok) throws ParseException {
-        Date time = SingletonEnum.SIMPLEDATE.getSimpleDate().parse(SingletonEnum.SIMPLEDATE.getSimpleDate().format(new Date()));
+    public static AbstractBaseEntity addOrEditDecorate(AbstractBaseEntity body, boolean isok) {
+        Date time = null;
+        try {
+            time = SingletonEnum.SIMPLEDATE.getSimpleDate().parse(SingletonEnum.SIMPLEDATE.getSimpleDate().format(new Date()));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         if(isok){
             body.setId(IDGenerate.id());
             body.setCreateTime(time);

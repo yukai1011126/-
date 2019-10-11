@@ -6,6 +6,7 @@
 
 package com.gdaas.iard.datafill.admin.web.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.gdaas.iard.datafill.admin.repo.dao.entity.TTemplateEntity;
 import com.gdaas.iard.datafill.admin.service.TTemplateService;
@@ -15,8 +16,8 @@ import com.gdaas.iard.datafill.common.BaseResp;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.log4j.Log4j2;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
@@ -39,7 +40,6 @@ import java.util.List;
 public class TTemplateController {
     @Autowired
     private TTemplateService targetService;
-
     /**
      * 获取数据列表
      *
@@ -49,7 +49,14 @@ public class TTemplateController {
     @PostMapping("/list")
     public BaseResp findListByPage(@RequestBody BaseRequest<TTemplateEntity> param) {
         Page page = MyUtil.pageDecorate(param);
-        targetService.page(page, null);
+        String vague = param.getVague();
+        boolean flag = StringUtils.isNotEmpty(vague);
+        LambdaQueryWrapper<TTemplateEntity> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.and(x-> x.like(flag, TTemplateEntity::getTemplateName, vague).or()
+                .like(flag, TTemplateEntity::getConfigUser, vague ).or()
+                .like(flag, TTemplateEntity::getMemo, vague));
+        log.info("查询参数为：{}",param.getParam().toString());
+        targetService.page(page, queryWrapper);
         return BaseResp.success(page);
     }
 
@@ -59,9 +66,9 @@ public class TTemplateController {
      * @author jerryniu
      */
     @ApiOperation("查询所有数据")
-    @GetMapping("/all")
+    @PostMapping("/all")
     public BaseResp findAll() {
-        List<TTemplateEntity> models = targetService.list(null);
+        List<TTemplateEntity> models = targetService.list();
         return BaseResp.success(models);
     }
 
@@ -71,9 +78,9 @@ public class TTemplateController {
      * @author jerryniu
      */
     @ApiOperation("查询单条记录")
-    @GetMapping("/find")
-    public BaseResp find(Long id) {
-        TTemplateEntity entity = targetService.getById(id);
+    @PostMapping("/find")
+    public BaseResp find(@RequestBody BaseRequest<TTemplateEntity> baseRequest) {
+        TTemplateEntity entity = targetService.getById(baseRequest.getParam().getId());
         if (entity == null) {
             return BaseResp.fail("尚未查询到此ID");
         }
@@ -87,14 +94,14 @@ public class TTemplateController {
      */
     @ApiOperation(value = "添加单条记录", notes = "id自增")
     @PostMapping(value = "/add")
-    public BaseResp addItem(@RequestBody TTemplateEntity entity) {
+    public BaseResp addItem(@RequestBody TTemplateEntity entity){
         boolean isOk = StringUtils.isEmpty(entity.getId());
         try {
             entity = (TTemplateEntity) MyUtil.addOrEditDecorate(entity, isOk);
-            isOk = isOk ? targetService.save(entity) : targetService.save(entity);
-            log.info("数据：{},保存结果:{}",entity,isOk);
+            isOk = isOk ? targetService.save(entity) : targetService.updateById(entity);
+            log.info("保存数据结束：{}，保存结果：{}",entity.toString(),isOk);
         } catch (ParseException e) {
-            log.error("新增异常：{}",e);
+            log.info("数据保存异常：{}",e);
         }
         if (isOk) {
             return BaseResp.success("数据添加成功");

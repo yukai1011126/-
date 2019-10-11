@@ -71,7 +71,7 @@ public class TDataDictController {
      * @author jerryniu
      */
     @ApiOperation("查询所有数据")
-    @GetMapping("/all")
+    @PostMapping("/all")
     public BaseResp findAll() {
         List<TDataDictEntity> models = targetService.list();
         List<Map<String,Object>> data = new ArrayList<>();
@@ -111,16 +111,21 @@ public class TDataDictController {
     @PostMapping(value = "/add")
     public BaseResp addItem(@RequestBody TDataDictEntity entity){
         boolean isOk = StringUtils.isEmpty(entity.getId());
-        String level = null;
+        String level;
         try {
             if(isOk){
                 String sequence = targetService.findTopSequence("sort_number","t_data_dict");
                 entity.setSortNumber(StringUtils.isEmpty(sequence) ? "1" : sequence);
                 if(StringUtils.isEmpty(entity.getParentId())){
                     entity.setParentId("0");
+                    entity.setPath(entity.getId());
+                    entity.setMergeName(entity.getName());
                     level = "1";
                 }else{
-                    level = String.valueOf((Integer.valueOf(targetService.getById(entity.getParentId()).getLevel())+ 1));
+                    TDataDictEntity parentData = targetService.getById(entity.getParentId());
+                    entity.setPath(parentData.getPath() + "," + entity.getId());
+                    entity.setMergeName(parentData.getName() + "," + entity.getName());
+                    level = String.valueOf((Integer.parseInt(parentData.getLevel())+ 1));
                 }
                 entity.setLevel(level);
             }
@@ -161,7 +166,7 @@ public class TDataDictController {
      - @param child 子节点键值
      - @return JSONArray
      */
-    public static JSONArray listToTree(JSONArray arr, String id, String pid, String child){
+    JSONArray listToTree(JSONArray arr, String id, String pid, String child){
         JSONArray r = new JSONArray();
         JSONObject hash = new JSONObject();
         //将数组转为Object的形式，key为数组中的id

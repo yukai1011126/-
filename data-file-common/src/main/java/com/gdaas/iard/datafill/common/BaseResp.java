@@ -87,6 +87,13 @@ public class BaseResp<T> {
     }
 
     /**
+     * <p>description : 错误</p>
+     */
+    public static <T> BaseResp<T> error(T data) {
+        return BaseResp.discuss(BaseCode.ERROR, data);
+    }
+
+    /**
      * <p>description : 自定义返回码与数据(需要在BaseCode中建立新的枚举类)</p>
      */
     public static <T> BaseResp<T> custom(BaseCode code, T data) {
