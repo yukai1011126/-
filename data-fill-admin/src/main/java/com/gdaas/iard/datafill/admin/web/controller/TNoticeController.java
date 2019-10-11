@@ -6,16 +6,13 @@
 
 package com.gdaas.iard.datafill.admin.web.controller;
 
-import com.baomidou.mybatisplus.core.conditions.AbstractWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.gdaas.iard.datafill.admin.repo.dao.entity.TNoticeEntity;
 import com.gdaas.iard.datafill.admin.service.TNoticeService;
 import com.gdaas.iard.datafill.admin.util.MyUtil;
-import com.gdaas.iard.datafill.admin.web.common.BaseResp;
 import com.gdaas.iard.datafill.common.BaseRequest;
-import com.gdaas.iard.datafill.common.util.IDGenerate;
+import com.gdaas.iard.datafill.common.BaseResp;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.log4j.Log4j2;
@@ -24,10 +21,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * <p>通知消息表 前端控制器</p>
@@ -60,8 +54,9 @@ public class TNoticeController {
         LambdaQueryWrapper<TNoticeEntity> queryWrapper = new LambdaQueryWrapper();
         Page page = MyUtil.pageDecorate(baseResp);
         // 支持模糊查询
-        queryWrapper = StringUtils.isEmpty(status) ? queryWrapper : queryWrapper.eq(TNoticeEntity::getStatus, status);
-        queryWrapper = StringUtils.isEmpty(vague) ? queryWrapper : queryWrapper
+        queryWrapper = StringUtils.isEmpty(vague) ? queryWrapper.eq(!StringUtils.isEmpty(status),TNoticeEntity::getStatus,status)
+                : queryWrapper
+                .eq(!StringUtils.isEmpty(status),TNoticeEntity::getStatus,status)
                 .and(x->x.like(TNoticeEntity::getContent, vague).or()
                 .like(TNoticeEntity::getSummary, vague).or()
                 .like(TNoticeEntity::getTitle, vague).or()
