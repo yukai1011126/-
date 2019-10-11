@@ -17,4 +17,34 @@ import java.util.Date;
  * @since 2019-10-04
  */
 public abstract class AbstractBaseEntity<T extends Model> extends Model<T> {
+    private String id;
+
+    private Date createTime;
+
+    private Date updateTime;
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
 }

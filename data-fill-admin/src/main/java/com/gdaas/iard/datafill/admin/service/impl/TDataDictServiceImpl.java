@@ -21,4 +21,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class TDataDictServiceImpl extends AbstractBaseService<TDataDictDao, TDataDictEntity>
         implements TDataDictService {
+
+    @Override
+    public String findTopSequence(String field,String table) {
+        return this.baseMapper.findTopSequence(field,table);
+    }
 }

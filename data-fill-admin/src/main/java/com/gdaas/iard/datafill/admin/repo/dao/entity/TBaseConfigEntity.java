@@ -62,7 +62,29 @@ public class TBaseConfigEntity extends AbstractBaseEntity<TBaseConfigEntity> {
     @ApiModelProperty(value = "修改时间时间 ")
     @TableField("update_time")
     private Date updateTime;
+    public String getId() {
+        return id;
+    }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
     @Override
     protected Serializable pkVal() {
         return this.id;

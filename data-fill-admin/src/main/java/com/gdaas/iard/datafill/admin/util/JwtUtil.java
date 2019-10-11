@@ -1,6 +1,7 @@
 package com.gdaas.iard.datafill.admin.util;
 
 import com.alibaba.fastjson.JSON;
+import com.gdaas.iard.datafill.common.SystemConstant;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
@@ -24,7 +25,7 @@ public class JwtUtil {
     public static String parseJWT(String jsonWebToken) {
         try {
             Claims claims = Jwts.parser()
-                    .setSigningKey(FinalString.KEYT.getBytes())
+                    .setSigningKey(SystemConstant.KEYT.getBytes())
                     .parseClaimsJws(jsonWebToken).getBody();
             String o = (String) claims.get("user");
             return o;
@@ -45,7 +46,7 @@ public class JwtUtil {
         //添加构成JWT的参数
         JwtBuilder builder = Jwts.builder().setHeaderParam("typ", "JWT")
                 .setPayload(JSON.toJSON(map).toString())
-                .signWith(signatureAlgorithm, FinalString.KEYT.getBytes()); //估计是第三段密钥
+                .signWith(signatureAlgorithm, SystemConstant.KEYT.getBytes()); //估计是第三段密钥
         //生成JWT
         return builder.compact();
     }

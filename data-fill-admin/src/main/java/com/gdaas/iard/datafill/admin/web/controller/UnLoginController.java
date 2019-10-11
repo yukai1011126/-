@@ -5,7 +5,6 @@ import java.util.Date;
 
 import com.gdaas.iard.datafill.admin.repo.dao.entity.Users;
 import com.gdaas.iard.datafill.admin.service.TUserService;
-import com.gdaas.iard.datafill.admin.util.FinalString;
 import com.gdaas.iard.datafill.admin.util.JwtUtil;
 import com.gdaas.iard.datafill.admin.util.SingletonEnum;
 import com.gdaas.iard.datafill.admin.web.common.BaseResp;
@@ -18,10 +17,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 @Log4j2
 @CrossOrigin
@@ -42,7 +37,9 @@ public class UnLoginController {
 	public BaseResp login(@RequestBody Users usertrmp) throws Exception {
 		String username = usertrmp.getUsername();
 		String password = usertrmp.getPassword();
-		long time = new Date().getTime()+Long.valueOf(FinalString.SESSIONOUTTIME);
+		// PC登陆超时时间
+		//
+		long time = new Date().getTime()+Long.valueOf(86400000);
 		try {
 			if (StringUtils.isEmpty(username) || StringUtils.isEmpty(password)) {
 				return BaseResp.fail("账号密码为空");

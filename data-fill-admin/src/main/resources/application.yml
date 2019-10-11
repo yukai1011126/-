@@ -30,6 +30,7 @@ mybatis-plus:
       # 数据库类型
       db-type: POSTGRESQL
   configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     # 开启mybatis驼峰命名
     map-underscore-to-camel-case: true
     # 关闭缓存
