@@ -106,7 +106,7 @@ public class TNoticeController {
             entity = (TNoticeEntity) MyUtil.addOrEditDecorate(entity, isOk);
             isOk = isOk ? targetService.save(entity) : targetService.save(entity);
             log.info("数据：{},保存结果:{}", entity, isOk);
-        } catch (ParseException e) {
+        } catch (Exception e) {
             log.error("新增异常：{}", e);
         }
         if (isOk) {

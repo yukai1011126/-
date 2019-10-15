@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.gdaas.iard.datafill.admin.repo.dao.AbstractBaseEntity;
 import com.gdaas.iard.datafill.common.BaseRequest;
 import com.gdaas.iard.datafill.common.util.IDGenerate;
+import org.apache.commons.lang3.StringUtils;
 
 import java.text.ParseException;
 import java.util.Date;
@@ -18,7 +19,9 @@ public class MyUtil {
     public static Page pageDecorate(BaseRequest param){
         Page page = new Page(param.getPage(), param.getRows());
         String sort = param.getSort();
-        if( sort.contains("+")){
+        if(StringUtils.isEmpty(sort)){
+            return page;
+        }else if ( sort.contains("+")){
             page.setAsc(sort.replace("+",""));
         }else if (sort.contains("-")){
             page.setDesc(sort.replace("-",""));

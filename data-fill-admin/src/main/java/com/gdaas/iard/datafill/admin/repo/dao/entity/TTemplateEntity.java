@@ -58,6 +58,12 @@ public class TTemplateEntity extends AbstractBaseEntity<TTemplateEntity> {
     @ApiModelProperty(value = "修改时间时间 ")
     @TableField("update_time")
     private Date updateTime;
+
+    @ApiModelProperty(value = "模板数据列 ")
+    @TableField("templatedatalist")
+    private String templatedatalist;
+
+
     public String getId() {
         return id;
     }

@@ -11,6 +11,7 @@ import com.gdaas.iard.datafill.admin.repo.dao.mapper.TDataDictDao;
 import com.gdaas.iard.datafill.admin.service.TDataDictService;
 import com.gdaas.iard.datafill.admin.service.AbstractBaseService;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 /**
  * <p>字典表 服务实现类</p>
@@ -24,6 +25,8 @@ public class TDataDictServiceImpl extends AbstractBaseService<TDataDictDao, TDat
 
     @Override
     public String findTopSequence(String field,String table) {
-        return this.baseMapper.findTopSequence(field,table);
+        String sequence = this.baseMapper.findTopSequence(field,table);
+        return StringUtils.isEmpty(sequence) ? "1" : sequence;
+
     }
 }

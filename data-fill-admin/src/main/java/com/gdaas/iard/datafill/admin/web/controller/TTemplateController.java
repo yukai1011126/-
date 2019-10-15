@@ -9,6 +9,7 @@ package com.gdaas.iard.datafill.admin.web.controller;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.gdaas.iard.datafill.admin.repo.dao.entity.TTemplateEntity;
+import com.gdaas.iard.datafill.admin.service.TDataDictService;
 import com.gdaas.iard.datafill.admin.service.TTemplateService;
 import com.gdaas.iard.datafill.admin.util.MyUtil;
 import com.gdaas.iard.datafill.common.BaseRequest;
@@ -20,7 +21,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.text.ParseException;
 import java.util.List;
 
 /**
@@ -40,6 +40,8 @@ import java.util.List;
 public class TTemplateController {
     @Autowired
     private TTemplateService targetService;
+    @Autowired
+    private TDataDictService targetDictService;
     /**
      * 获取数据列表
      *
@@ -51,12 +53,16 @@ public class TTemplateController {
         Page page = MyUtil.pageDecorate(param);
         String vague = param.getVague();
         boolean flag = StringUtils.isNotEmpty(vague);
-        LambdaQueryWrapper<TTemplateEntity> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.and(x-> x.like(flag, TTemplateEntity::getTemplateName, vague).or()
-                .like(flag, TTemplateEntity::getConfigUser, vague ).or()
-                .like(flag, TTemplateEntity::getMemo, vague));
-        log.info("查询参数为：{}",param.getParam().toString());
-        targetService.page(page, queryWrapper);
+        if(flag){
+            LambdaQueryWrapper<TTemplateEntity> queryWrapper = new LambdaQueryWrapper<>();
+            queryWrapper.and(x-> x.like(TTemplateEntity::getTemplateName, vague).or()
+                    .like(TTemplateEntity::getConfigUser, vague ).or()
+                    .like(TTemplateEntity::getMemo, vague));
+            log.info("查询参数为：{}",param.getParam().toString());
+            targetService.page(page, queryWrapper);
+        }else{
+            targetService.page(page, null);
+        }
         return BaseResp.success(page);
     }
 
@@ -97,14 +103,17 @@ public class TTemplateController {
     public BaseResp addItem(@RequestBody TTemplateEntity entity){
         boolean isOk = StringUtils.isEmpty(entity.getId());
         try {
+            if(isOk){
+                entity.setTemplateNumber(targetDictService.findTopSequence("template_number","t_template"));
+            }
             entity = (TTemplateEntity) MyUtil.addOrEditDecorate(entity, isOk);
             isOk = isOk ? targetService.save(entity) : targetService.updateById(entity);
             log.info("保存数据结束：{}，保存结果：{}",entity.toString(),isOk);
-        } catch (ParseException e) {
+        } catch (Exception e) {
             log.info("数据保存异常：{}",e);
         }
         if (isOk) {
-            return BaseResp.success("数据添加成功");
+            return BaseResp.success(entity);
         }
         return BaseResp.fail("数据添加失败");
     }
@@ -116,8 +125,8 @@ public class TTemplateController {
      */
     @ApiOperation("删除记录")
     @PostMapping("/del")
-    public BaseResp deleteItems(List<Long> ids) {
-        boolean isOk = targetService.removeByIds(ids);
+    public BaseResp deleteItems(@RequestBody TTemplateEntity tTemplateEntity) {
+        boolean isOk = targetService.removeById(tTemplateEntity.getId());
         if (isOk) {
             return BaseResp.success("数据删除成功");
         }

@@ -6,11 +6,11 @@
 
 package com.gdaas.iard.datafill.admin.repo.dao.entity;
 
-import com.gdaas.iard.datafill.admin.repo.dao.AbstractBaseEntity;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.util.Date;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.gdaas.iard.datafill.admin.repo.dao.AbstractBaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -19,16 +19,16 @@ import lombok.experimental.Accessors;
 import java.io.Serializable;
 
 /**
- * <p></p>
+ * <p>模板配置数据项表</p>
  *
  * @author like
- * @since 2019-10-04
+ * @since 2019-10-12
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
 @TableName("t_template_data")
-@ApiModel(value = "TTemplateDataEntity对象", description = "")
+@ApiModel(value = "TTemplateDataEntity对象", description = "模板配置数据项表")
 public class TTemplateDataEntity extends AbstractBaseEntity<TTemplateDataEntity> {
 
     @ApiModelProperty(value = "主键ID ")
@@ -47,31 +47,23 @@ public class TTemplateDataEntity extends AbstractBaseEntity<TTemplateDataEntity>
     @TableField("template_number")
     private String templateNumber;
 
-    @ApiModelProperty(value = "数据字典ID ")
+    @ApiModelProperty(value = "最后数据字典ID ")
     @TableField("dict_id")
     private String dictId;
 
-    @ApiModelProperty(value = "一级指标 ")
-    @TableField("level1")
-    private String level1;
+    @ApiModelProperty(value = "最后数据字典名 ")
+    @TableField("dict_name")
+    private String dictName;
 
-    @ApiModelProperty(value = "二级指标 ")
-    @TableField("level2")
-    private String level2;
-
-    @ApiModelProperty(value = "三级指标 ")
-    @TableField("level3")
-    private String level3;
-
-    @ApiModelProperty(value = "四级指标 ")
-    @TableField("level4")
-    private String level4;
+    @ApiModelProperty(value = "最后数据字典编码 根据code相创建字段")
+    @TableField("dict_code")
+    private String dictCode;
 
     @ApiModelProperty(value = "计量单位 ")
     @TableField("unit")
     private String unit;
 
-    @ApiModelProperty(value = "数据类型 ")
+    @ApiModelProperty(value = "数据类型 varchar , decimal")
     @TableField("data_type")
     private String dataType;
 
@@ -106,23 +98,18 @@ public class TTemplateDataEntity extends AbstractBaseEntity<TTemplateDataEntity>
     public String getId() {
         return id;
     }
-
     public void setId(String id) {
         this.id = id;
     }
-
     public Date getCreateTime() {
         return createTime;
     }
-
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
-
     public Date getUpdateTime() {
         return updateTime;
     }
-
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }

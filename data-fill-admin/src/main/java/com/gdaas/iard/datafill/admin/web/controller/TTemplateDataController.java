@@ -22,11 +22,13 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
-import java.text.ParseException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 
 /**
  * <p> 前端控制器</p>
@@ -100,23 +102,42 @@ public class TTemplateDataController {
      */
     @ApiOperation(value = "添加单条记录", notes = "id自增")
     @PostMapping(value = "/add")
+    @Transactional
     public BaseResp addItem(@RequestBody TTemplateDataEntity entity){
         boolean isOk = StringUtils.isEmpty(entity.getId());
         List<TTemplateDataEntity> tlist = null;
-        String[] dictids = StringUtils.isEmpty(entity.getDictId()) ? null : entity.getDictId().split(",");
+        TTemplateEntity ttemplate = targetService.getById(entity.getTemplateId());
         try {
+            // 删除陈旧模板数据
+            String templatedatalist = ttemplate.getTemplatedatalist();
+            String[] templatedatalists = StringUtils.isNotEmpty(templatedatalist) ? templatedatalist.split(",") : null;
+            if(templatedatalists != null && templatedatalists.length > 0){
+                List<String> list = new ArrayList<>();
+                for(String templatedataid : templatedatalists){
+                    list.add(templatedataid);
+                }
+                targetDataService.removeByIds(list);
+            }
+
+            // 根据字典数据批量增加模板数据
+            String dict = entity.getDictId();
+            String[] dictids = StringUtils.isEmpty(dict) ? null : dict.split(",");
+            StringBuilder ttemplatedataids = new StringBuilder();
             if(dictids != null && dictids.length > 0){
                 tlist = new ArrayList<>();
-                for(String dictid : dictids){
-                    TDataDictEntity tDataDictEntity = targetDictService.getById(dictid);
-                    TTemplateDataEntity tTemplateDataEntity = tDataDictEntity == null ? null : copyTemToTemdata(tDataDictEntity);
-                    tTemplateDataEntity = (TTemplateDataEntity) MyUtil.addOrEditDecorate(tTemplateDataEntity, isOk);
-                    tlist.add(tTemplateDataEntity);
+                for(int i = 0 , len = dictids.length ; i < len ; i++){
+                    TDataDictEntity tDataDictEntity = targetDictService.getById(dictids[i]);
+                    // 添加数据字典到模板数据集合中(同时添加模板信息)
+                    TTemplateDataEntity tTemplateDataEntitytemp = (TTemplateDataEntity) MyUtil.addOrEditDecorate(copyTemToTemdata(i,tDataDictEntity,ttemplate), true);
+                    ttemplatedataids.append(tTemplateDataEntitytemp.getId()).append(",");
+                    tlist.add(tTemplateDataEntitytemp);
                 }
             } else {
                 return BaseResp.error("数据字典编号为空");
             }
-            isOk = isOk ? targetDataService.saveBatch(tlist) : targetDataService.updateBatchById(tlist);
+            ttemplate.setTemplatedatalist(ttemplatedataids.substring(0,ttemplatedataids.length()-1));
+            targetService.updateById(ttemplate);
+            isOk = targetDataService.saveBatch(tlist);
             log.info("保存数据结束：{}，保存结果：{}",entity.toString(),isOk);
         } catch (Exception e) {
             log.info("数据保存异常：{}",e);
@@ -134,7 +155,7 @@ public class TTemplateDataController {
      */
     @ApiOperation("删除记录")
     @PostMapping("/del")
-    public BaseResp deleteItems(List<Long> ids) {
+    public BaseResp deleteItems(@RequestBody List<Long> ids) {
         boolean isOk = targetService.removeByIds(ids);
         if (isOk) {
             return BaseResp.success("数据删除成功");
@@ -142,15 +163,23 @@ public class TTemplateDataController {
         return BaseResp.fail("数据删除失败");
     }
 
-    private TTemplateDataEntity copyTemToTemdata(TDataDictEntity tDataDictEntity){
-        TTemplateDataEntity tTemplateDataEntity = new TTemplateDataEntity();
-        tTemplateDataEntity.setDataType(tDataDictEntity.getDataType());
-        tTemplateDataEntity.setDataLength(tDataDictEntity.getDataLength());
-        tTemplateDataEntity.setDefaultValue(tDataDictEntity.getDefaultValue());
-        tTemplateDataEntity.setFormula(tDataDictEntity.getFormula());
-        tTemplateDataEntity.setSortNumber(tDataDictEntity.getSortNumber());
-        tTemplateDataEntity.setSelectValue(tDataDictEntity.getSelectValue());
-        tTemplateDataEntity.setDictId(tDataDictEntity.getId());
-        return tTemplateDataEntity;
+    private TTemplateDataEntity copyTemToTemdata(int i, TDataDictEntity tDataDictEntity,TTemplateEntity ttemplate){
+        Function<TDataDictEntity, TTemplateDataEntity> func = x -> {
+            TTemplateDataEntity tTemplateDataEntity = new TTemplateDataEntity();
+            tTemplateDataEntity.setDataType(x.getDataType());
+            tTemplateDataEntity.setDataLength(x.getDataLength());
+            tTemplateDataEntity.setDefaultValue(x.getDefaultValue());
+            tTemplateDataEntity.setFormula(x.getFormula());
+            tTemplateDataEntity.setSelectValue(x.getSelectValue());
+            tTemplateDataEntity.setDictId(x.getId());
+            tTemplateDataEntity.setDictName(x.getName());
+            tTemplateDataEntity.setDictCode(x.getCode());
+            tTemplateDataEntity.setTemplateNumber(String.valueOf(i+1));
+            return tTemplateDataEntity;
+        };
+        return func.apply(tDataDictEntity)
+                .setTemplateId(ttemplate.getId())
+                .setTemplateName(ttemplate.getTemplateName());
     }
+
 }

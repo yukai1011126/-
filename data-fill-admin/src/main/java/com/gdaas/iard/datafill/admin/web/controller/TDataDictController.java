@@ -23,7 +23,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.text.ParseException;
 import java.util.*;
 
 /**
@@ -114,8 +113,7 @@ public class TDataDictController {
         String level;
         try {
             if(isOk){
-                String sequence = targetService.findTopSequence("sort_number","t_data_dict");
-                entity.setSortNumber(StringUtils.isEmpty(sequence) ? "1" : sequence);
+                entity.setSortNumber(targetService.findTopSequence("sort_number","t_data_dict"));
                 if(StringUtils.isEmpty(entity.getParentId())){
                     entity.setParentId("0");
                     entity.setPath(entity.getId());
@@ -132,7 +130,7 @@ public class TDataDictController {
             entity = (TDataDictEntity) MyUtil.addOrEditDecorate(entity, isOk);
             isOk = isOk ? targetService.save(entity) : targetService.updateById(entity);
             log.info("保存数据结束：{}，保存结果：{}",entity.toString(),isOk);
-        } catch (ParseException e) {
+        } catch (Exception e) {
             log.info("数据保存异常：{}",e);
         }
         if (isOk) {
