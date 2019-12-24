@@ -10,7 +10,6 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.gdaas.iard.datafill.admin.repo.dao.entity.TNoticeEntity;
 import com.gdaas.iard.datafill.admin.service.TNoticeService;
-import com.gdaas.iard.datafill.admin.util.MyUtil;
 import com.gdaas.iard.datafill.common.BaseRequest;
 import com.gdaas.iard.datafill.common.BaseResp;
 import io.swagger.annotations.Api;
@@ -20,7 +19,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
-import java.text.ParseException;
 import java.util.List;
 
 /**
@@ -43,24 +41,14 @@ public class TNoticeController {
 
     /**
      * 获取数据列表
-     *
+     *update
      * @author jerryniu
      */
     @ApiOperation("查询分页")
     @PostMapping("/list")
-    public BaseResp findListByPage(@RequestBody BaseRequest<TNoticeEntity> baseResp) {
-        String vague = baseResp.getVague();
-        String status = baseResp.getStatus();
+    public BaseResp findListByPage(@RequestBody Page page) {
         LambdaQueryWrapper<TNoticeEntity> queryWrapper = new LambdaQueryWrapper();
-        Page page = MyUtil.pageDecorate(baseResp);
         // 支持模糊查询
-        queryWrapper = StringUtils.isEmpty(vague) ? queryWrapper.eq(!StringUtils.isEmpty(status),TNoticeEntity::getStatus,status)
-                : queryWrapper
-                .eq(!StringUtils.isEmpty(status),TNoticeEntity::getStatus,status)
-                .and(x->x.like(TNoticeEntity::getContent, vague).or()
-                .like(TNoticeEntity::getSummary, vague).or()
-                .like(TNoticeEntity::getTitle, vague).or()
-                .like(TNoticeEntity::getUserName, vague));
         targetService.page(page, queryWrapper);
         log.info("查询结果：{}", page.toString());
         return BaseResp.success(page);
@@ -103,7 +91,6 @@ public class TNoticeController {
     public BaseResp addItem(@RequestBody TNoticeEntity entity) {
         boolean isOk = StringUtils.isEmpty(entity.getId());
         try {
-            entity = (TNoticeEntity) MyUtil.addOrEditDecorate(entity, isOk);
             isOk = isOk ? targetService.save(entity) : targetService.save(entity);
             log.info("数据：{},保存结果:{}", entity, isOk);
         } catch (Exception e) {

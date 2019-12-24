@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gdaas.iard.datafill.admin.repo.dao.mapper.TaskgroupDao">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.gdaas.iard.datafill.admin.repo.dao.entity.TaskgroupEntity">
+        <id column="taskgroup_id" property="taskgroupId" />
+        <result column="task_id" property="taskId" />
+        <result column="taskgroup_name" property="taskgroupName" />
+        <result column="taskgroup_startime" property="taskgroupStartime" />
+        <result column="taskgroup_endtime" property="taskgroupEndtime" />
+        <result column="taskgroup_createtime" property="taskgroupCreatetime" />
+        <result column="taskgroup_updatetime" property="taskgroupUpdatetime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        taskgroup_id, task_id, taskgroup_name, taskgroup_startime, taskgroup_endtime, taskgroup_createtime, taskgroup_updatetime
+    </sql>
+
+</mapper>

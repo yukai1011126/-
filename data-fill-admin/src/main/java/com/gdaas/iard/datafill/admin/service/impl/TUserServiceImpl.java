@@ -13,10 +13,10 @@ import com.gdaas.iard.datafill.admin.service.AbstractBaseService;
 import org.springframework.stereotype.Service;
 
 /**
- * <p>用户表 服务实现类</p>
+ * <p> 服务实现类</p>
  *
  * @author like
- * @since 2019-10-04
+ * @since 2019-11-12
  */
 @Service
 public class TUserServiceImpl extends AbstractBaseService<TUserDao, TUserEntity>

@@ -13,8 +13,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @Component
 public class InterceptorConfiguration extends WebMvcConfigurerAdapter{
     @Autowired
-	private UserLoginInterceptor userLoginInterceptor;
-    @Autowired
     private ExceptionInterceptor exceptionInterceptor;
 
 	@Override

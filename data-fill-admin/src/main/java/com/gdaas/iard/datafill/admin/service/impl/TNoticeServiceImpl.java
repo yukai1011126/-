@@ -6,7 +6,6 @@
 
 package com.gdaas.iard.datafill.admin.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.gdaas.iard.datafill.admin.repo.dao.entity.TNoticeEntity;
 import com.gdaas.iard.datafill.admin.repo.dao.mapper.TNoticeDao;

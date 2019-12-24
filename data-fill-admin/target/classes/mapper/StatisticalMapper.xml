@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gdaas.iard.datafill.admin.repo.dao.mapper.StatisticalDao">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.gdaas.iard.datafill.admin.repo.dao.entity.StatisticalEntity">
+        <id column="statistical_id" property="statisticalId" />
+        <result column="taskgroup_id" property="taskgroupId" />
+        <result column="task_id" property="taskId" />
+        <result column="task_name" property="taskName" />
+        <result column="organization_id" property="organizationId" />
+        <result column="organization_name" property="organizationName" />
+        <result column="organization_level" property="organizationLevel" />
+        <result column="createtime" property="createtime" />
+        <result column="updatetime" property="updatetime" />
+        <result column="state" property="state" />
+        <result column="task_date" property="taskDate" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        statistical_id, taskgroup_id, task_id, task_name, organization_id, organization_name, organization_level, createtime, updatetime, state,task_date
+    </sql>
+
+</mapper>

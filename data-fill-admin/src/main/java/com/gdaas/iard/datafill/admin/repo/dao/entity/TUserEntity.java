@@ -8,7 +8,7 @@ package com.gdaas.iard.datafill.admin.repo.dao.entity;
 
 import com.gdaas.iard.datafill.admin.repo.dao.AbstractBaseEntity;
 import com.baomidou.mybatisplus.annotation.TableName;
-import java.util.Date;
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
 import io.swagger.annotations.ApiModel;
@@ -17,108 +17,59 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
- * <p>用户表</p>
+ * <p></p>
  *
  * @author like
- * @since 2019-10-04
+ * @since 2019-11-12
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
 @TableName("t_user")
-@ApiModel(value = "TUserEntity对象", description = "用户表")
+@ApiModel(value = "TUserEntity对象", description = "")
 public class TUserEntity extends AbstractBaseEntity<TUserEntity> {
 
-    @ApiModelProperty(value = "主键ID ")
-    @TableId("id")
-    private String id;
+    @ApiModelProperty(value = "主键")
+    @TableId(value = "user_id", type = IdType.AUTO)
+    private Integer userId;
 
-    @ApiModelProperty(value = "姓名 ")
-    @TableField("name")
-    private String name;
+    @ApiModelProperty(value = "中文名称")
+    @TableField("cn_name")
+    private String cnName;
 
-    @ApiModelProperty(value = "手机 登录名")
-    @TableField("mobile")
-    private String mobile;
+    @ApiModelProperty(value = "用户名")
+    @TableField("username")
+    private String username;
 
-    @ApiModelProperty(value = "密码 ")
+    @ApiModelProperty(value = "密码")
     @TableField("password")
     private String password;
 
-    @ApiModelProperty(value = "盐 ")
-    @TableField("na_cl")
-    private String naCl;
+    @ApiModelProperty(value = "创建时间")
+    @TableField("createtime")
+    private Date createtime;
 
-    @ApiModelProperty(value = "微信openID ")
-    @TableField("open_id")
-    private String openId;
+    @ApiModelProperty(value = "更新时间")
+    @TableField("updatetime")
+    private Date updatetime;
 
-    @ApiModelProperty(value = "微信昵称 ")
-    @TableField("nick_name")
-    private String nickName;
+    @ApiModelProperty(value = "登录时间")
+    @TableField("login_time")
+    private Date loginTime;
 
-    @ApiModelProperty(value = "性别 0 未知 1 男 2 女")
-    @TableField("gender")
-    private String gender;
+    @ApiModelProperty(value = "用户角色")
+    @TableField("role")
+    private String role;
 
-    @ApiModelProperty(value = "头像URL ")
-    @TableField("avatar_url")
-    private String avatarUrl;
+    @ApiModelProperty(value = "所属机构")
+    @TableField("affiliate")
+    private String affiliate;
 
-    @ApiModelProperty(value = "国家 ")
-    @TableField("country")
-    private String country;
-
-    @ApiModelProperty(value = "省 ")
-    @TableField("province")
-    private String province;
-
-    @ApiModelProperty(value = "市  ")
-    @TableField("city")
-    private String city;
-
-    @ApiModelProperty(value = "备注 ")
-    @TableField("memo")
-    private String memo;
-
-    @ApiModelProperty(value = "状态 1 正常，0 无效")
-    @TableField("status")
-    private String status;
-
-    @ApiModelProperty(value = "记录创建时间 ")
-    @TableField("create_time")
-    private Date createTime;
-
-    @ApiModelProperty(value = "修改时间时间 ")
-    @TableField("update_time")
-    private Date updateTime;
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
     @Override
     protected Serializable pkVal() {
-        return this.id;
+        return this.userId;
     }
 }

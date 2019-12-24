@@ -15,7 +15,7 @@ import java.util.Map;
  * <p>基础service接口</p>
  *
  * @author like
- * @since 2019-10-04
+ * @since 2019-11-12
  */
 public interface BaseService<T> extends IService<T> {
     /**

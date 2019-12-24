@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gdaas.iard.datafill.admin.repo.dao.mapper.OpinionDao">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.gdaas.iard.datafill.admin.repo.dao.entity.OpinionEntity">
+        <id column="opinion_id" property="opinionId" />
+        <result column="opinion_text" property="opinionText" />
+        <result column="task_id" property="taskId" />
+        <result column="task_name" property="taskName" />
+        <result column="organization_id" property="organizationId" />
+        <result column="organization_name" property="organizationName" />
+        <result column="createtime" property="createtime" />
+        <result column="updatetime" property="updatetime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        opinion_id,opinion_text,  task_id, task_name, organization_id, organization_name, createtime, updatetime
+    </sql>
+
+</mapper>
