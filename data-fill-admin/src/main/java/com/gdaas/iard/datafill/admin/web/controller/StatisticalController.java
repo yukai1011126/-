@@ -99,59 +99,113 @@ public class StatisticalController {
         return BaseResp.success(page);
     }
 
-//    /**
-//     * 获取数据列表
-//     *
-//     * @author jerryniu
-//     */
-//    @ApiOperation("查询分页")
-//    @PostMapping("/plist")
-//    public BaseResp findpListByPage(@RequestBody BaseRequest<StatisticalEntity> param) {
-//        LambdaQueryWrapper<OrganizationEntity> queryWrapper1;
-//        LambdaQueryWrapper<StatisticalEntity> queryWrapper;
-//        queryWrapper1 = new LambdaQueryWrapper<>();
-//        queryWrapper1.in(OrganizationEntity::getOrganizationLevel,"1","2");
-//        List<OrganizationEntity> models = organizationService.list(queryWrapper1);
-//        List<StatisticalEntity> lists = new ArrayList<>();
-//        Page page = new Page(param.getPage(), param.getRows());
-//        for(OrganizationEntity organization: models){
-//            int denominator = 0;//分母
-//            int numerator = 0;//分子
-//            queryWrapper1 = new LambdaQueryWrapper<>();
-//            queryWrapper1.eq(OrganizationEntity::getPorganizationId,organization.getOrganizationId());
-//            List<OrganizationEntity> models1 = organizationService.list(queryWrapper1);
-//            //取到支行下的网点
-//            List<Integer> organizationList = new ArrayList<>();
-//            organizationList.add(organization.getOrganizationId());
-//            for(OrganizationEntity organization1 : models1){
-//                organizationList.add(organization1.getOrganizationId());
-//            }
-//            //查询支行网点下是否有任务
-//            queryWrapper = new LambdaQueryWrapper<>();
-//            queryWrapper.in(StatisticalEntity::getOrganizationId,organizationList);
-//            //任务名称搜索
-//            queryWrapper.eq(StringUtils.isNotEmpty(param.getParam().getTaskName()),StatisticalEntity::getTaskName,param.getParam().getTaskName());
-//            List<StatisticalEntity> statisticalModels = targetService.list(queryWrapper);
-//            for(StatisticalEntity statistical : statisticalModels){
-//                denominator++;
-//                if(statistical.getState()=="1"){
-//                    numerator++;
-//                }
-//            }
-//            if(denominator>0){
-//                StatisticalEntity statistical = new StatisticalEntity();
-//                statistical.set
-//            }
-//
-//            //分页做不了
-//            //            Page page = new Page(param.getPage(), param.getRows());
-//            //            targetService.page(page, queryWrapper);
-//
-//        }
-//
-//
-//        return BaseResp.success(page);
-//    }
+    /**
+     * 获取数据列表
+     *
+     * @author jerryniu
+     */
+    @ApiOperation("查询分页")
+    @PostMapping("/plist")
+    public BaseResp findpListByPage(@RequestBody BaseRequest<StatisticalEntity> param) {
+        LambdaQueryWrapper<OrganizationEntity> queryWrapper1;
+        LambdaQueryWrapper<StatisticalEntity> queryWrapper;
+        queryWrapper1 = new LambdaQueryWrapper<>();
+        queryWrapper1.in(OrganizationEntity::getOrganizationLevel,"1","2");
+        List<OrganizationEntity> models = organizationService.list(queryWrapper1);
+        List<StatisticalEntity> lists = new ArrayList<>();
+        for(OrganizationEntity organization: models){
+            int denominator = 0;//分母
+            int numerator = 0;//分子
+            queryWrapper1 = new LambdaQueryWrapper<>();
+            queryWrapper1.eq(OrganizationEntity::getPorganizationId,organization.getOrganizationId());
+            List<OrganizationEntity> models1 = organizationService.list(queryWrapper1);
+            //取到支行下的网点
+            List<Integer> organizationList = new ArrayList<>();
+            organizationList.add(organization.getOrganizationId());
+            for(OrganizationEntity organization1 : models1){
+                organizationList.add(organization1.getOrganizationId());
+            }
+            //查询支行网点下是否有任务
+            queryWrapper = new LambdaQueryWrapper<>();
+            queryWrapper.in(StatisticalEntity::getOrganizationId,organizationList);
+            //任务名称搜索
+            queryWrapper.eq(StringUtils.isNotEmpty(param.getParam().getTaskName()),StatisticalEntity::getTaskName,param.getParam().getTaskName());
+            List<StatisticalEntity> statisticalModels = targetService.list(queryWrapper);
+            for(StatisticalEntity statistical : statisticalModels){
+                denominator++;
+                if("1".equals(statistical.getState())){
+                    numerator++;
+                }
+            }
+            if(denominator>0){
+                StatisticalEntity statistical = new StatisticalEntity();
+                statistical.setStatisticalId(statisticalModels.get(0).getStatisticalId());
+                statistical.setOrganizationId(organization.getOrganizationId());
+                statistical.setOrganizationName(organization.getOrganizationName());
+                statistical.setOrganizationLevel(organization.getOrganizationLevel());
+                statistical.setTaskId(statisticalModels.get(0).getTaskId());
+                statistical.setTaskName(statisticalModels.get(0).getTaskName());
+                statistical.setTaskDate(statisticalModels.get(0).getTaskDate());
+                statistical.setState(numerator+"/"+denominator);
+                statistical.setTaskgroupId("");
+                statistical.setCreatetime(statisticalModels.get(0).getCreatetime());
+                statistical.setUpdatetime(statisticalModels.get(0).getUpdatetime());
+                lists.add(statistical);
+            }
+        }
+        //手动分页
+        Page page = new Page(param.getPage(), param.getRows());
+        page.setRecords(lists);
+        page.setTotal(lists.size());
+        page.setSize(20);
+        page.setSearchCount(true);
+        long pages = page.getTotal() / page.getSize();
+        if (page.getTotal() % page.getSize() != 0L) {
+            ++pages;
+        }
+        page.setPages(pages);
+        page.setCurrent(param.getPage());
+
+        return BaseResp.success(page);
+    }
+
+    /**
+     * 获取全部pid相同的数据
+     *
+     * @author jerryniu
+     */
+    @ApiOperation("查询所有数据")
+    @PostMapping("/pidtask")
+    public BaseResp findPidTask(@RequestBody StatisticalEntity param) {
+        LambdaQueryWrapper<OrganizationEntity> queryWrapper = new LambdaQueryWrapper<>();
+        //查询相同 pid or id的数据
+        queryWrapper.eq(OrganizationEntity::getPorganizationId,param.getOrganizationId()).or().eq(OrganizationEntity::getOrganizationId,param.getOrganizationId());
+        List<OrganizationEntity> models = organizationService.list(queryWrapper);
+        LambdaQueryWrapper<StatisticalEntity> queryWrapper1;
+        List<StatisticalEntity> lists = new ArrayList<>();
+        for(OrganizationEntity organization:models){
+            queryWrapper1 = new LambdaQueryWrapper<>();
+            queryWrapper1.eq(StatisticalEntity::getOrganizationId,organization.getOrganizationId());
+            queryWrapper1.eq(StatisticalEntity::getTaskName,param.getTaskName());
+            List<StatisticalEntity> statisticalModels = targetService.list(queryWrapper1);
+            if(statisticalModels.size()>0){
+                statisticalModels.get(0).setStatisticalId(statisticalModels.get(0).getStatisticalId()+2014);
+                switch (statisticalModels.get(0).getState()){
+                    case "0":
+                        statisticalModels.get(0).setState("未反馈");
+                        break;
+                    case "1":
+                        statisticalModels.get(0).setState("完成");
+                        break;
+                    case "2":
+                        statisticalModels.get(0).setState("未完成");
+                        break;
+                }
+                lists.add(statisticalModels.get(0));
+            }
+        }
+        return BaseResp.success(lists);
+    }
 
     /**
      * 获取全部数据
@@ -597,15 +651,23 @@ public class StatisticalController {
      */
     @ApiOperation("搜索查询分页")
     @PostMapping("/searchList")
-    public BaseResp findSearchListByPage(@RequestBody BaseRequest<StatisticalEntity> param) {
+    public BaseResp findSearchListByPage(@RequestBody BaseRequest<StatisticalEntity> param) throws ParseException {
         LambdaQueryWrapper<StatisticalEntity> queryWrapper = new LambdaQueryWrapper<>();
         if(param.getParam().getOrganizationId() != null){
             //机构ID搜索
             queryWrapper.like(StatisticalEntity::getOrganizationId,param.getParam().getOrganizationId());
         }
-        if(param.getArr() != null){
+        if(param.getDate() != null){
+            String[] s = param.getDate().split("T");
+            //获取当天日期
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            Date date = sdf.parse(s[0]);//当天日期
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(date);
+            calendar.add(Calendar.DAY_OF_MONTH, 1);
+            Date date2  = calendar.getTime();//第二天日期
             //创建时间搜索
-            queryWrapper.between(StatisticalEntity::getCreatetime,param.getArr()[0],param.getArr()[1]);
+            queryWrapper.eq(StatisticalEntity::getTaskDate,date2);
         }
         Page page = new Page(param.getPage(), param.getRows());
         targetService.page(page, queryWrapper);
@@ -648,7 +710,7 @@ public class StatisticalController {
     @PostMapping("/lantern")
     public BaseResp findLantern() {
         LambdaQueryWrapper<StatisticalEntity> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.in(StatisticalEntity::getState,"1","2");
+        queryWrapper.eq(StatisticalEntity::getState,"1");
         queryWrapper.orderByDesc(StatisticalEntity::getUpdatetime);
         List<StatisticalEntity> models = targetService.list(queryWrapper);
             List<String> lantern = new ArrayList<>();

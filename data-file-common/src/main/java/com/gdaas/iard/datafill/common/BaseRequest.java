@@ -15,6 +15,6 @@ public class BaseRequest<T> {
     // 状态查询
     String status;
     T param;
-    String [] arr;
+    String date;
 
 }

@@ -60,6 +60,13 @@ public class TUserController {
         queryWrapper.like(StringUtils.isNotEmpty(param.getVague()),TUserEntity::getUsername,param.getVague());
         Page page = new Page(param.getPage(), param.getRows());
         targetService.page(page, queryWrapper);
+        List<TUserEntity> userList = new ArrayList<>();
+        userList = page.getRecords();
+        for(int i = 0;i<userList.size();i++){
+            if("".equals(userList.get(i).getAffiliate()) || userList.get(i).getAffiliate() == null){
+                userList.get(i).setAffiliate("---");
+            }
+        }
         return BaseResp.success(page);
     }
 

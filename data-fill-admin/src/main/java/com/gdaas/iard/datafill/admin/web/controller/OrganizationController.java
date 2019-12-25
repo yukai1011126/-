@@ -330,7 +330,7 @@ public class OrganizationController {
         String orgName = URLDecoder.decode(organizationName);
         String neworganizationName = orgName.replace("=","");
         LambdaQueryWrapper<OrganizationEntity> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(StringUtils.isNotEmpty(neworganizationName),OrganizationEntity::getPorganizationName,neworganizationName);
+        queryWrapper.eq(StringUtils.isNotEmpty(neworganizationName),OrganizationEntity::getPorganizationName,neworganizationName).or().eq(OrganizationEntity::getOrganizationName,neworganizationName);
         List<OrganizationEntity> models = targetService.list(queryWrapper);
         for(OrganizationEntity organization:models){
             switch (organization.getOrganizationLevel()){
@@ -345,6 +345,10 @@ public class OrganizationController {
                     break;
             }
         }
+        OrganizationEntity organization = new OrganizationEntity();
+        organization.setOrganizationId(0000);
+        organization.setOrganizationName("全选");
+        models.add(organization);
         return BaseResp.success(models);
     }
 
